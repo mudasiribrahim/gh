@@ -3270,6 +3270,18 @@ body.dark-mode .nav-item a.active::before {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
+/* Web of Science - Blue/Teal */
+.social-icon[title="Web of Science"]:hover {
+    color: #0d5c8c !important; 
+}
+
+/* Web of Science - Blue/Teal for profile */
+.profile-social-icon[title="Web of Science"]:hover {
+    color: #0d5c8c !important;
+    background-color: rgba(13, 92, 140, 0.1);
+    border-color: #0d5c8c;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .shiny-apps-grid {
@@ -6941,20 +6953,23 @@ const loadBlogPostsWithFallback = async () => {
         </div>
         
         {/* Professional Social Icons */}
-        <div className="profile-social-icons" style={{marginTop: '25px', justifyContent: 'flex-start'}}>
-            <a href="https://orcid.org/0000-0002-9049-8222" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="ORCID">
-                <i className="fab fa-orcid"></i>
-            </a>
-            <a href="https://scholar.google.com/citations?user=xEFzAvgAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="Google Scholar">
-                <i className="fas fa-graduation-cap"></i>
-            </a>
-            <a href="https://github.com/mudassiribrahim30" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="GitHub">
-                <i className="fab fa-github"></i>
-            </a>
-            <a href="https://linkedin.com/in/mudasir-mohammed-ibrahim-16b5141b0" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="LinkedIn">
-                <i className="fab fa-linkedin"></i>
-            </a>
-        </div>
+ <div className="profile-social-icons" style={{marginTop: '25px', justifyContent: 'flex-start'}}>
+    <a href="https://orcid.org/0000-0002-9049-8222" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="ORCID">
+        <i className="fab fa-orcid"></i>
+    </a>
+    <a href="https://scholar.google.com/citations?user=xEFzAvgAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="Google Scholar">
+        <i className="fas fa-graduation-cap"></i>
+    </a>
+    <a href="https://www.webofscience.com/wos/author/record/HPC-2085-2023" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="Web of Science">
+        <i className="fas fa-book-open"></i>
+    </a>
+    <a href="https://github.com/mudassiribrahim30" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="GitHub">
+        <i className="fab fa-github"></i>
+    </a>
+    <a href="https://linkedin.com/in/mudasir-mohammed-ibrahim-16b5141b0" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="LinkedIn">
+        <i className="fab fa-linkedin"></i>
+    </a>
+</div>
     </div>
 </div>
 </div>
@@ -7034,7 +7049,7 @@ const loadBlogPostsWithFallback = async () => {
   
             <div className="bio-section">
                 <div className="bio-text">
-                    <p>Hello and welcome! I’m Mohammed Mudasir Ibrahim—professionally, Mudasir Mohammed Ibrahim, but “Mudasir Ibrahim” works just fine. Here, you’ll find my research in health and a collection of interactive Shiny web tools I’ve built to make statistical analyses less painful and more fun. Feel free to browse, explore, or email me if you have questions about my apps, research, or anything else, or if you just want to nerd out over data.</p>
+                    <p>Hello and welcome! I’m Mohammed Mudasir Ibrahim, professionally, Mudasir Mohammed Ibrahim, but “Mudasir Ibrahim” works just fine. Here, you’ll find my research in health and a collection of interactive Shiny web tools I’ve built to make statistical analyses less painful and more fun. Feel free to browse, explore, or email me if you have questions about my apps, research, or anything else, or if you just want to nerd out over data.</p>
                     
                                           
                       <p>By day, I'm a Registered Nurse at <a href="https://tth.gov.gh">Tamale Teaching Hospital (TTH)</a>. I’ve published numerous research on nursing education, workforce issues, patient safety, cancer epidemiology, and maternal and child health. Along the way, I’ve earned academic reviewer certificates and contributed to the broader scientific community. I enjoy turning real-world clinical challenges into actionable research and practical tools.</p>
@@ -8991,12 +9006,15 @@ const categoryDescriptions = {
             </div>
             
             <div className="header-right">
-                <div className="social-icons">
+<div className="social-icons">
 <a href="https://orcid.org/0000-0002-9049-8222" class="social-icon" title="ORCID">
     <i class="fab fa-orcid"></i>
 </a>
 <a href="https://scholar.google.com/citations?user=xEFzAvgAAAAJ&hl=en" class="social-icon" title="Google Scholar">
     <i class="fas fa-graduation-cap"></i>
+</a>
+<a href="https://www.webofscience.com/wos/author/record/HPC-2085-2023" class="social-icon" title="Web of Science">
+    <i class="fas fa-book-open"></i>
 </a>
 <a href="https://github.com/mudassiribrahim30" class="social-icon" title="GitHub">
     <i class="fab fa-github"></i>
