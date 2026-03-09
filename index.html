@@ -8094,7 +8094,7 @@ const ShinyAppsComponent = () => {
         fetchAppViews();
     }, []);
     
-    // All apps data WITHOUT views property
+    // All apps data - each app has its own card, in the correct order
     const shinyApps = [
         {
             id: 1,
@@ -8424,7 +8424,7 @@ const ShinyAppsComponent = () => {
                 )}
             </div>
 
-            {/* APPS GRID - Now shows view counts on each card */}
+            {/* APPS GRID - Each app in its own card, in the correct order */}
             <div className="shiny-apps-grid">
                 {filteredApps.length > 0 ? (
                     filteredApps.map(app => (
@@ -8517,24 +8517,24 @@ const ShinyAppsComponent = () => {
                     App Statistics & Feedback
                 </h3>
 
-                {/* Views Counter - Now calculates total automatically */}
-                          <div className="views-counter-container">
-                <div className="views-counter-card">
-                    <div className="views-counter-header">
-                        <div className="views-icon">
-                            <i className="fas fa-chart-line"></i>
-                        </div>
-                        <div className="total-views-container">
-                            <div className="total-views-label">Total Application Views (All {shinyApps.length} Apps)</div>
-                            <div className="total-views-number">
-                                {loadingViews ? 'Loading...' : totalViews.toLocaleString()}
+                {/* Views Counter */}
+                <div className="views-counter-container">
+                    <div className="views-counter-card">
+                        <div className="views-counter-header">
+                            <div className="views-icon">
+                                <i className="fas fa-chart-line"></i>
                             </div>
-                            <div className="total-views-update">
-                                <i className="fas fa-sync-alt" style={{ marginRight: '5px' }}></i>
-                                Calculated from individual app views
+                            <div className="total-views-container">
+                                <div className="total-views-label">Total Application Views (All {shinyApps.length} Apps)</div>
+                                <div className="total-views-number">
+                                    {loadingViews ? 'Loading...' : totalViews.toLocaleString()}
+                                </div>
+                                <div className="total-views-update">
+                                    <i className="fas fa-sync-alt" style={{ marginRight: '5px' }}></i>
+                                    Calculated from individual app views
+                                </div>
                             </div>
                         </div>
-                    </div>
                         
                         <div className="views-source">
                             <span>Views sourced from</span>
@@ -8549,7 +8549,7 @@ const ShinyAppsComponent = () => {
                             </a>
                         </div>
 
-                        {/* Individual App Views Grid - Now uses actual data */}
+                        {/* Individual App Views Grid */}
                         <div className="individual-views-container">
                             <div className="individual-views-title">
                                 <i className="fas fa-trophy" style={{ marginRight: '10px', color: '#FFD700' }}></i>
