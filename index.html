@@ -2989,12 +2989,45 @@ body.dark-mode .nav-item a.active::before {
     letter-spacing: 1px;
 }
 
-/* Apps Grid */
+/* Apps Grid - Default for desktop */
 .shiny-apps-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 25px;
     margin: 3em 0;
+}
+
+/* For tablets - 2 columns */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .shiny-apps-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px;
+    }
+}
+
+/* FOR PHONES - FORCE SINGLE COLUMN */
+@media (max-width: 768px) {
+    .shiny-apps-grid {
+        grid-template-columns: 1fr !important; /* Force one column */
+        gap: 20px;
+    }
+}
+
+/* For very small phones */
+@media (max-width: 480px) {
+    .shiny-apps-grid {
+        grid-template-columns: 1fr !important; /* Force one column */
+        gap: 15px;
+    }
+    
+    .app-links {
+        flex-direction: column; /* Buttons stack */
+    }
+    
+    .app-link {
+        width: 100%; /* Full width buttons */
+        margin: 5px 0;
+    }
 }
 
 .shiny-app-card {
