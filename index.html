@@ -442,89 +442,6 @@ body.dark-mode .slide-toggle.active {
     z-index: 1;
 }
 
-/* Mobile theme toggle inside hamburger menu */
-.mobile-theme-toggle-item {
-    width: 100%;
-    height: auto !important;
-    margin-top: 10px;
-    border-top: 1px solid var(--nav-border);
-    padding-top: 15px;
-}
-
-.mobile-theme-toggle-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px 15px;
-    color: var(--nav-text);
-}
-
-.theme-toggle-label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-.theme-toggle-label i {
-    font-size: 1rem;
-    width: 16px;
-    text-align: center;
-}
-
-.mobile-slide-toggle {
-    width: 40px;
-    height: 20px;
-    background: #ccc;
-    border-radius: 20px;
-    position: relative;
-    cursor: pointer;
-    transition: background 0.3s;
-    flex-shrink: 0;
-    border: none;
-    outline: none;
-    padding: 0;
-    display: flex;
-    align-items: center;
-}
-
-.mobile-slide-toggle::after {
-    content: '';
-    width: 16px;
-    height: 16px;
-    background: white;
-    border-radius: 50%;
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    transition: transform 0.3s;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-.mobile-slide-toggle.active {
-    background: #4CAF50;
-}
-
-.mobile-slide-toggle.active::after {
-    transform: translateX(20px);
-}
-
-/* Dark mode adjustments */
-body.dark-mode .mobile-slide-toggle {
-    background: #666;
-}
-
-body.dark-mode .mobile-slide-toggle.active {
-    background: #4CAF50;
-}
-
-/* Hide the standalone mobile theme toggle */
-.mobile-theme-toggle {
-    display: none !important;
-}
-
 /* Create the slide toggle knob */
 .mobile-theme-toggle::after {
     content: '';
@@ -3822,6 +3739,111 @@ body.dark-mode .design-attribution a {
 body.dark-mode .design-attribution a:hover {
     color: #4dabf7;
     border-bottom-color: #4dabf7;
+}
+
+/* Mobile theme toggle at bottom of hamburger menu */
+.mobile-theme-bottom {
+    width: 100%;
+    margin-top: auto;
+    padding: 20px 0 10px 0;
+    border-top: 2px solid var(--nav-border);
+}
+
+.mobile-theme-toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 15px;
+    color: var(--nav-text);
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.theme-toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.theme-toggle-label i {
+    font-size: 1rem;
+    width: 16px;
+    text-align: center;
+}
+
+.mobile-slide-toggle {
+    width: 40px;
+    height: 20px;
+    background: #ccc;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s;
+    flex-shrink: 0;
+    border: none;
+    outline: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.mobile-slide-toggle::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-slide-toggle.active {
+    background: #4CAF50;
+}
+
+.mobile-slide-toggle.active::after {
+    transform: translateX(20px);
+}
+
+/* Dark mode adjustments */
+body.dark-mode .mobile-slide-toggle {
+    background: #666;
+}
+
+body.dark-mode .mobile-slide-toggle.active {
+    background: #4CAF50;
+}
+
+/* Hide the standalone mobile theme toggle */
+.mobile-theme-toggle {
+    display: none !important;
+}
+
+/* Ensure mobile menu uses flex column with proper spacing */
+.nav-container.mobile-open {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+}
+
+.nav-container.mobile-open .tabs-container {
+    flex: 0 1 auto;
+}
+
+.nav-container.mobile-open .header-right {
+    flex: 0 1 auto;
+    margin-top: 20px;
+}
+
+.nav-container.mobile-open .mobile-theme-bottom {
+    flex: 0 1 auto;
+    margin-top: auto;
 }
 
 /* Interactive Profile Image Styles */
@@ -9667,20 +9689,6 @@ const categoryDescriptions = {
                             </a>
                         </div>
                     </li>
-                    
-                    {/* Mobile theme toggle - INSIDE THE HAMBURGER MENU */}
-                    <li className="nav-item mobile-theme-toggle-item">
-                        <div className="mobile-theme-toggle-container">
-                            <span className="theme-toggle-label">
-                                <i className="fas fa-palette"></i> Theme
-                            </span>
-                            <div 
-                                className={`mobile-slide-toggle ${darkMode ? 'active' : ''}`}
-                                onClick={toggleTheme}
-                                title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                            ></div>
-                        </div>
-                    </li>
                 </ul>
             </div>
             
@@ -9710,6 +9718,20 @@ const categoryDescriptions = {
                 <div style={{ display: 'flex', alignItems: 'center', height: '70px', marginLeft: '10px' }}>
                     <div 
                         className={`slide-toggle ${darkMode ? 'active' : ''}`}
+                        onClick={toggleTheme}
+                        title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                    ></div>
+                </div>
+            </div>
+            
+            {/* Mobile theme toggle - AT THE BOTTOM OF HAMBURGER MENU */}
+            <div className="mobile-theme-bottom">
+                <div className="mobile-theme-toggle-container">
+                    <span className="theme-toggle-label">
+                        <i className="fas fa-palette"></i> Theme
+                    </span>
+                    <div 
+                        className={`mobile-slide-toggle ${darkMode ? 'active' : ''}`}
                         onClick={toggleTheme}
                         title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
                     ></div>
