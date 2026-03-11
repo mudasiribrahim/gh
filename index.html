@@ -442,6 +442,89 @@ body.dark-mode .slide-toggle.active {
     z-index: 1;
 }
 
+/* Mobile theme toggle inside hamburger menu */
+.mobile-theme-toggle-item {
+    width: 100%;
+    height: auto !important;
+    margin-top: 10px;
+    border-top: 1px solid var(--nav-border);
+    padding-top: 15px;
+}
+
+.mobile-theme-toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 15px;
+    color: var(--nav-text);
+}
+
+.theme-toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.theme-toggle-label i {
+    font-size: 1rem;
+    width: 16px;
+    text-align: center;
+}
+
+.mobile-slide-toggle {
+    width: 40px;
+    height: 20px;
+    background: #ccc;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s;
+    flex-shrink: 0;
+    border: none;
+    outline: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.mobile-slide-toggle::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-slide-toggle.active {
+    background: #4CAF50;
+}
+
+.mobile-slide-toggle.active::after {
+    transform: translateX(20px);
+}
+
+/* Dark mode adjustments */
+body.dark-mode .mobile-slide-toggle {
+    background: #666;
+}
+
+body.dark-mode .mobile-slide-toggle.active {
+    background: #4CAF50;
+}
+
+/* Hide the standalone mobile theme toggle */
+.mobile-theme-toggle {
+    display: none !important;
+}
+
 /* Create the slide toggle knob */
 .mobile-theme-toggle::after {
     content: '';
@@ -9429,26 +9512,16 @@ const categoryDescriptions = {
        
 <div className="full-width-header">
     <div className="header-container">
-        {/* Logo container with theme toggle */}
+        {/* Logo container */}
         <div className="logo-container">
-<a href="#" className="logo" onClick={(e) => { 
-    e.preventDefault(); 
-    setActiveSection('about'); 
-    setIsMobileMenuOpen(false); 
-    scrollToTop();
-}}>
-    {window.innerWidth < 768 ? "Mudasir M. Ibrahim" : "Mudasir Mohammed Ibrahim"}
-</a>
-            
-{/* Mobile theme toggle - visible on tablets and phones */}
-<button 
-    className={`mobile-theme-toggle ${darkMode ? 'active' : ''}`}
-    onClick={toggleTheme}
-    title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-    aria-label={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
->
-    <i className={darkMode ? "fas fa-sun" : "fas fa-moon"}></i>
-</button>
+            <a href="#" className="logo" onClick={(e) => { 
+                e.preventDefault(); 
+                setActiveSection('about'); 
+                setIsMobileMenuOpen(false); 
+                scrollToTop();
+            }}>
+                Mudasir Mohammed Ibrahim
+            </a>
         </div>
         
         {/* Mobile hamburger button */}
@@ -9463,170 +9536,184 @@ const categoryDescriptions = {
         {/* Navigation container - will be hidden on mobile when menu is closed */}
         <div className={`nav-container ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
             <div className="tabs-container">
-<ul className="nav-list">
-    <li className="nav-item">
-        <a 
-            href="#about" 
-            onClick={(e) => { 
-                e.preventDefault(); 
-                setActiveSection('about'); 
-                setIsMobileMenuOpen(false);
-            }}
-            className={activeSection === 'about' ? 'active' : ''}
-        >
-            About Me
-        </a>
-    </li>
-    <li className="nav-item">
-        <a 
-            href="#publications" 
-            onClick={(e) => { 
-                e.preventDefault(); 
-                setActiveSection('publications'); 
-                setIsMobileMenuOpen(false);
-            }}
-            className={activeSection === 'publications' ? 'active' : ''}
-        >
-            Publications
-        </a>
-    </li>
-    <li className="nav-item">
-        <a 
-            href="#shiny" 
-            onClick={(e) => { 
-                e.preventDefault(); 
-                setActiveSection('shiny'); 
-                setIsMobileMenuOpen(false);
-            }}
-            className={activeSection === 'shiny' ? 'active' : ''}
-        >
-            Software
-        </a>
-    </li>
-    <li className="nav-item">
-        <a 
-            href="#blog" 
-            onClick={(e) => { 
-                e.preventDefault(); 
-                setActiveSection('blog'); 
-                setIsMobileMenuOpen(false);
-            }}
-            className={activeSection === 'blog' ? 'active' : ''}
-        >
-            Blog
-        </a>
-    </li>
-    <li className="nav-item">
-        <a 
-            href="#teaching" 
-            onClick={(e) => { 
-                e.preventDefault(); 
-                setActiveSection('teaching'); 
-                setIsMobileMenuOpen(false);
-            }}
-            className={activeSection === 'teaching' ? 'active' : ''}
-        >
-            Teaching
-        </a>
-    </li>
- 
-<li className="nav-item dropdown">
-    <a 
-        href="#more" 
-        onClick={(e) => { 
-            e.preventDefault(); 
-            // Toggle dropdown for both desktop and mobile
-            const dropdown = e.target.closest('.dropdown');
-            if (window.innerWidth <= 1024) {
-                // For mobile/tablet: Just toggle the dropdown open/closed
-                dropdown.classList.toggle('active');
-            } else {
-                // For desktop: Toggle dropdown
-                dropdown.classList.toggle('active');
-            }
-        }}
-        className={`dropdown-toggle ${activeSection === 'gallery' || activeSection === 'testimonials' ? 'active' : ''}`}
-    >
-        More <i className="fas fa-chevron-down"></i>
-    </a>
-    <div className="dropdown-menu">
-        <a 
-            href="#gallery" 
-            onClick={(e) => { 
-                e.preventDefault(); 
-                setActiveSection('gallery'); 
-                setIsMobileMenuOpen(false);
-                // Close dropdown
-                const dropdown = e.target.closest('.dropdown');
-                if (dropdown) dropdown.classList.remove('active');
-            }}
-            className="dropdown-item"
-        >
-            <i className="fas fa-images" style={{width: '16px', textAlign: 'center'}}></i>
-            Gallery
-        </a>
-        {/* Testimonials link - goes to the testimonial section in Software page */}
-        <a 
-            href="#testimonials" 
-            onClick={(e) => { 
-                e.preventDefault(); 
-                setActiveSection('shiny');
-                setIsMobileMenuOpen(false);
-                // Close dropdown
-                const dropdown = e.target.closest('.dropdown');
-                if (dropdown) dropdown.classList.remove('active');
-                
-                // Scroll to testimonial section after a short delay
-                setTimeout(() => {
-                    const testimonialElement = document.querySelector('.testimonial-button-container');
-                    if (testimonialElement) {
-                        testimonialElement.scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'start' 
-                        });
-                    }
-                }, 100);
-            }}
-            className="dropdown-item"
-        >
-            <i className="fas fa-star" style={{width: '16px', textAlign: 'center'}}></i>
-            Testimonials
-        </a>
-    </div>
-</li>
-  </ul>
+                <ul className="nav-list">
+                    <li className="nav-item">
+                        <a 
+                            href="#about" 
+                            onClick={(e) => { 
+                                e.preventDefault(); 
+                                setActiveSection('about'); 
+                                setIsMobileMenuOpen(false);
+                            }}
+                            className={activeSection === 'about' ? 'active' : ''}
+                        >
+                            About Me
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <a 
+                            href="#publications" 
+                            onClick={(e) => { 
+                                e.preventDefault(); 
+                                setActiveSection('publications'); 
+                                setIsMobileMenuOpen(false);
+                            }}
+                            className={activeSection === 'publications' ? 'active' : ''}
+                        >
+                            Publications
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <a 
+                            href="#shiny" 
+                            onClick={(e) => { 
+                                e.preventDefault(); 
+                                setActiveSection('shiny'); 
+                                setIsMobileMenuOpen(false);
+                            }}
+                            className={activeSection === 'shiny' ? 'active' : ''}
+                        >
+                            Software
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <a 
+                            href="#blog" 
+                            onClick={(e) => { 
+                                e.preventDefault(); 
+                                setActiveSection('blog'); 
+                                setIsMobileMenuOpen(false);
+                            }}
+                            className={activeSection === 'blog' ? 'active' : ''}
+                        >
+                            Blog
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <a 
+                            href="#teaching" 
+                            onClick={(e) => { 
+                                e.preventDefault(); 
+                                setActiveSection('teaching'); 
+                                setIsMobileMenuOpen(false);
+                            }}
+                            className={activeSection === 'teaching' ? 'active' : ''}
+                        >
+                            Teaching
+                        </a>
+                    </li>
+                    
+                    <li className="nav-item dropdown">
+                        <a 
+                            href="#more" 
+                            onClick={(e) => { 
+                                e.preventDefault(); 
+                                // Toggle dropdown for both desktop and mobile
+                                const dropdown = e.target.closest('.dropdown');
+                                if (window.innerWidth <= 1024) {
+                                    // For mobile/tablet: Just toggle the dropdown open/closed
+                                    dropdown.classList.toggle('active');
+                                } else {
+                                    // For desktop: Toggle dropdown
+                                    dropdown.classList.toggle('active');
+                                }
+                            }}
+                            className={`dropdown-toggle ${activeSection === 'gallery' || activeSection === 'testimonials' ? 'active' : ''}`}
+                        >
+                            More <i className="fas fa-chevron-down"></i>
+                        </a>
+                        <div className="dropdown-menu">
+                            <a 
+                                href="#gallery" 
+                                onClick={(e) => { 
+                                    e.preventDefault(); 
+                                    setActiveSection('gallery'); 
+                                    setIsMobileMenuOpen(false);
+                                    // Close dropdown
+                                    const dropdown = e.target.closest('.dropdown');
+                                    if (dropdown) dropdown.classList.remove('active');
+                                }}
+                                className="dropdown-item"
+                            >
+                                <i className="fas fa-images" style={{width: '16px', textAlign: 'center'}}></i>
+                                Gallery
+                            </a>
+                            {/* Testimonials link - goes to the testimonial section in Software page */}
+                            <a 
+                                href="#testimonials" 
+                                onClick={(e) => { 
+                                    e.preventDefault(); 
+                                    setActiveSection('shiny');
+                                    setIsMobileMenuOpen(false);
+                                    // Close dropdown
+                                    const dropdown = e.target.closest('.dropdown');
+                                    if (dropdown) dropdown.classList.remove('active');
+                                    
+                                    // Scroll to testimonial section after a short delay
+                                    setTimeout(() => {
+                                        const testimonialElement = document.querySelector('.testimonial-button-container');
+                                        if (testimonialElement) {
+                                            testimonialElement.scrollIntoView({ 
+                                                behavior: 'smooth', 
+                                                block: 'start' 
+                                            });
+                                        }
+                                    }, 100);
+                                }}
+                                className="dropdown-item"
+                            >
+                                <i className="fas fa-star" style={{width: '16px', textAlign: 'center'}}></i>
+                                Testimonials
+                            </a>
+                        </div>
+                    </li>
+                    
+                    {/* Mobile theme toggle - INSIDE THE HAMBURGER MENU */}
+                    <li className="nav-item mobile-theme-toggle-item">
+                        <div className="mobile-theme-toggle-container">
+                            <span className="theme-toggle-label">
+                                <i className="fas fa-palette"></i> Theme
+                            </span>
+                            <div 
+                                className={`mobile-slide-toggle ${darkMode ? 'active' : ''}`}
+                                onClick={toggleTheme}
+                                title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                            ></div>
+                        </div>
+                    </li>
+                </ul>
             </div>
             
             <div className="header-right">
-<div className="social-icons">
-<a href="https://orcid.org/0000-0002-9049-8222" class="social-icon" title="ORCID">
-    <i class="fab fa-orcid"></i>
-</a>
-<a href="https://scholar.google.com/citations?user=xEFzAvgAAAAJ&hl=en" class="social-icon" title="Google Scholar">
-    <i class="fas fa-graduation-cap"></i>
-</a>
-<a href="https://www.webofscience.com/wos/author/record/HPC-2085-2023" class="social-icon" title="Web of Science">
-    <i class="fas fa-book-open"></i>
-</a>
-<a href="https://github.com/mudassiribrahim30" class="social-icon" title="GitHub">
-    <i class="fab fa-github"></i>
-</a>
-<a href="https://linkedin.com/in/mudasir-mohammed-ibrahim-16b5141b0" class="social-icon" title="LinkedIn">
-    <i class="fab fa-linkedin"></i>
-</a>
-<a href="https://www.youtube.com/@mudasirmohammedibrahim1026" class="social-icon" title="YouTube">
-    <i class="fab fa-youtube"></i>
-</a>
-</div>
+                <div className="social-icons">
+                    <a href="https://orcid.org/0000-0002-9049-8222" class="social-icon" title="ORCID">
+                        <i class="fab fa-orcid"></i>
+                    </a>
+                    <a href="https://scholar.google.com/citations?user=xEFzAvgAAAAJ&hl=en" class="social-icon" title="Google Scholar">
+                        <i class="fas fa-graduation-cap"></i>
+                    </a>
+                    <a href="https://www.webofscience.com/wos/author/record/HPC-2085-2023" class="social-icon" title="Web of Science">
+                        <i class="fas fa-book-open"></i>
+                    </a>
+                    <a href="https://github.com/mudassiribrahim30" class="social-icon" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/mudasir-mohammed-ibrahim-16b5141b0" class="social-icon" title="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@mudasirmohammedibrahim1026" class="social-icon" title="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
 
-{/* Desktop theme toggle */}
-<div style={{ display: 'flex', alignItems: 'center', height: '70px', marginLeft: '10px' }}>
-    <div 
-        className={`slide-toggle ${darkMode ? 'active' : ''}`}
-        onClick={toggleTheme}
-        title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-    ></div>
-</div>
+                {/* Desktop theme toggle */}
+                <div style={{ display: 'flex', alignItems: 'center', height: '70px', marginLeft: '10px' }}>
+                    <div 
+                        className={`slide-toggle ${darkMode ? 'active' : ''}`}
+                        onClick={toggleTheme}
+                        title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                    ></div>
+                </div>
             </div>
         </div>
     </div>
