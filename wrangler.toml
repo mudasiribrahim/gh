@@ -1,0 +1,6 @@
+name = "mywebsite"
+compatibility_date = "2024-04-01"
+
+# For static HTML/CSS site
+[assets]
+directory = "./public"
