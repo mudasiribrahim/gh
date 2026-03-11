@@ -292,6 +292,107 @@ body.dark-mode .slide-toggle.active {
     background: #4CAF50;
 }
 
+/* ========== FIX TEXT SIZE CONSISTENCY ========== */
+/* Make all experience item titles the same size */
+.experience-item .item-title,
+.experience-item > div:first-child,
+.education-item .item-subtitle,
+.education-item > div:first-child,
+.education-item .item-title {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 5px !important;
+    color: var(--header-color) !important;
+    line-height: 1.4 !important;
+}
+
+/* Specifically target the problem areas */
+/* For "Academic Reviewer Recognition" */
+.experience-item .item-title {
+    font-size: 1rem !important;
+}
+
+/* For conference titles */
+.experience-item > div:first-child {
+    font-size: 1rem !important;
+}
+
+/* For "Ghana Registered Nurses and Midwives Association (GRNMA)" */
+.education-item .item-subtitle {
+    font-size: 1rem !important;
+}
+
+/* Ensure links inside these items also match */
+.experience-item a,
+.education-item a {
+    font-size: 1rem !important;
+}
+
+/* Make all institution/organization text consistent */
+.item-subtitle,
+.experience-item .item-subtitle,
+.education-item .item-subtitle,
+.education-item .professional-org,
+.experience-item .professional-org {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    color: var(--nav-hover) !important;
+    margin-bottom: 5px !important;
+}
+
+/* Make all period text consistent */
+.item-period,
+.experience-item .item-period,
+.education-item .item-period {
+    font-size: 0.9rem !important;
+    color: var(--position-color) !important;
+    margin-bottom: 10px !important;
+    font-style: italic !important;
+}
+
+/* Make all description text consistent */
+.item-description,
+.experience-item .item-description,
+.education-item .item-description {
+    font-size: 0.95rem !important;
+    color: var(--text-color) !important;
+    line-height: 1.6 !important;
+}
+
+/* Fix the specific items you mentioned */
+.experience-item:has(.item-title:contains("Academic Reviewer Recognition")) .item-title,
+.experience-item:has(div:contains("Nurses' and Midwives' Training College-Tamale Scientific Session 2024")) div:first-child,
+.experience-item:has(div:contains("Tamale Teaching Hospital Scientific Research Conference")) div:first-child {
+    font-size: 1rem !important;
+}
+
+/* If the above :contains selectors don't work (some browsers may not support them), 
+   use this more specific targeting based on your HTML structure */
+.experience-item .item-title,
+.education-item .item-subtitle {
+    font-size: 1rem !important;
+}
+
+/* Target by index if needed - adjust the numbers based on where these items appear */
+.experience-item:nth-of-type(1) > div:first-child,  /* First experience item */
+.experience-item:nth-of-type(2) > div:first-child,  /* Second experience item */
+.experience-item:nth-of-type(3) > div:first-child,  /* Third experience item */
+.experience-item:nth-of-type(4) > div:first-child,  /* Fourth experience item */
+.experience-item:nth-of-type(5) > div:first-child {  /* Fifth experience item */
+    font-size: 1rem !important;
+}
+
+/* Override any Bootstrap or framework defaults */
+[class*="item"] {
+    font-size: 1rem !important;
+}
+
+/* Ensure the About Me section has consistent sizing */
+.bio-section .experience-item > div:first-child,
+.bio-section .education-item > div:first-child {
+    font-size: 1rem !important;
+}
+
 /* ========== MOBILE/TABLET THEME TOGGLE ========== */
 .mobile-theme-toggle {
     width: 40px !important;
@@ -2836,6 +2937,260 @@ body.dark-mode .nav-item a.active::before {
         height: 40px;
         font-size: 1.5rem;
     }
+}
+
+/* ========== FIXED TALLY FORM CHAT BOX STYLES - CENTERED ========== */
+/* Override Tally's default positioning */
+.tally-popup,
+.tally-modal,
+iframe[src*="tally.so"] {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    right: auto !important;
+    bottom: auto !important;
+    max-width: 380px !important;
+    width: 380px !important;
+    height: auto !important;
+    max-height: 600px !important;
+    min-height: 500px !important;
+    border-radius: 24px !important;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25) !important;
+    overflow: visible !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    background: var(--card-bg, #ffffff) !important;
+    z-index: 999999 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Fix iframe inside */
+.tally-popup iframe,
+.tally-modal iframe,
+iframe[src*="tally.so"] iframe {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 500px !important;
+    max-height: 600px !important;
+    border-radius: 24px !important;
+    border: none !important;
+    display: block !important;
+}
+
+/* Remove chat bubble tail that might interfere */
+.tally-popup::after,
+.tally-modal::after {
+    display: none !important;
+}
+
+/* Ensure the form content is scrollable if needed */
+.tally-popup .tally-embed,
+.tally-modal .tally-embed {
+    max-height: 600px !important;
+    overflow-y: auto !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .tally-popup,
+    .tally-modal,
+    iframe[src*="tally.so"] {
+        max-width: 340px !important;
+        width: 340px !important;
+        max-height: 550px !important;
+        min-height: 450px !important;
+    }
+    
+    .tally-popup iframe,
+    .tally-modal iframe,
+    iframe[src*="tally.so"] iframe {
+        max-height: 550px !important;
+        min-height: 450px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .tally-popup,
+    .tally-modal,
+    iframe[src*="tally.so"] {
+        max-width: 300px !important;
+        width: 300px !important;
+        max-height: 500px !important;
+        min-height: 400px !important;
+    }
+    
+    .tally-popup iframe,
+    .tally-modal iframe,
+    iframe[src*="tally.so"] iframe {
+        max-height: 500px !important;
+        min-height: 400px !important;
+    }
+}
+
+/* Animation for opening */
+@keyframes chatPopCenter {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -45%) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.tally-popup,
+.tally-modal,
+iframe[src*="tally.so"] {
+    animation: chatPopCenter 0.3s ease-out !important;
+}
+
+/* Style the form content to match chat card */
+.tally-popup [data-testid="modal-header"],
+.tally-modal [data-testid="modal-header"] {
+    padding: 20px 24px !important;
+    background: linear-gradient(135deg, #3498db, #2980b9) !important;
+    color: white !important;
+    border-top-left-radius: 24px !important;
+    border-top-right-radius: 24px !important;
+    font-weight: 600 !important;
+}
+
+/* Style close button */
+.tally-popup [data-testid="modal-close"],
+.tally-modal [data-testid="modal-close"] {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 50% !important;
+    width: 32px !important;
+    height: 32px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: white !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    position: absolute !important;
+    top: 15px !important;
+    right: 15px !important;
+}
+
+.tally-popup [data-testid="modal-close"]:hover,
+.tally-modal [data-testid="modal-close"]:hover {
+    background: rgba(255, 255, 255, 0.3) !important;
+    transform: rotate(90deg) !important;
+}
+
+/* Form body */
+.tally-popup [data-testid="modal-body"],
+.tally-modal [data-testid="modal-body"] {
+    padding: 24px !important;
+    background: var(--card-bg, #ffffff) !important;
+}
+
+/* Input fields */
+.tally-popup input,
+.tally-popup textarea,
+.tally-popup select,
+.tally-modal input,
+.tally-modal textarea,
+.tally-modal select {
+    width: 100% !important;
+    border-radius: 12px !important;
+    border: 1px solid var(--border-color, #e0e0e0) !important;
+    padding: 12px 16px !important;
+    font-size: 0.95rem !important;
+    background: var(--light-bg, #f8f9fa) !important;
+    color: var(--text-color, #333333) !important;
+    transition: all 0.3s ease !important;
+    margin-bottom: 16px !important;
+    box-sizing: border-box !important;
+}
+
+.tally-popup input:focus,
+.tally-popup textarea:focus,
+.tally-popup select:focus,
+.tally-modal input:focus,
+.tally-modal textarea:focus,
+.tally-modal select:focus {
+    border-color: #3498db !important;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1) !important;
+    outline: none !important;
+}
+
+/* Labels */
+.tally-popup label,
+.tally-modal label {
+    font-weight: 600 !important;
+    color: var(--header-color, #222222) !important;
+    margin-bottom: 6px !important;
+    display: block !important;
+    font-size: 0.9rem !important;
+}
+
+/* Submit button */
+.tally-popup button[type="submit"],
+.tally-modal button[type="submit"] {
+    background: linear-gradient(135deg, #3498db, #2980b9) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 14px 24px !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    width: 100% !important;
+    margin-top: 16px !important;
+    box-sizing: border-box !important;
+}
+
+.tally-popup button[type="submit"]:hover,
+.tally-modal button[type="submit"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3) !important;
+    background: linear-gradient(135deg, #2980b9, #1f6aa5) !important;
+}
+
+/* Dark mode support */
+body.dark-mode .tally-popup,
+body.dark-mode .tally-modal,
+body.dark-mode iframe[src*="tally.so"] {
+    background: var(--card-bg, #1e1e1e) !important;
+    border-color: var(--border-color, #444444) !important;
+}
+
+body.dark-mode .tally-popup [data-testid="modal-body"],
+body.dark-mode .tally-modal [data-testid="modal-body"] {
+    background: var(--card-bg, #1e1e1e) !important;
+}
+
+body.dark-mode .tally-popup input,
+body.dark-mode .tally-popup textarea,
+body.dark-mode .tally-popup select,
+body.dark-mode .tally-modal input,
+body.dark-mode .tally-modal textarea,
+body.dark-mode .tally-modal select {
+    background: var(--light-bg, #2a2a2a) !important;
+    color: var(--text-color, #f0f0f0) !important;
+    border-color: var(--border-color, #444444) !important;
+}
+
+body.dark-mode .tally-popup label,
+body.dark-mode .tally-modal label {
+    color: var(--header-color, #ffffff) !important;
+}
+
+/* Fix for any overlay that might cause issues */
+.tally-overlay,
+[class*="tally-overlay"] {
+    background: rgba(0, 0, 0, 0.5) !important;
+    backdrop-filter: blur(4px) !important;
+    z-index: 99999 !important;
 }
         
         /* Shiny Apps Section - Essential Styles */
@@ -9875,6 +10230,88 @@ const categoryDescriptions = {
     <i class="fas fa-comment"></i>
     <span class="badge">!</span>
 </div>
+
+<script>
+// Clean Tally form opener with centered positioning
+let tallyScriptLoaded = false;
+
+function openTallyForm() {
+    if (window.Tally) {
+        window.Tally.openPopup('lbrlWB', {
+            layout: 'modal',
+            width: 380,
+            height: 600,
+            autoClose: 3000,
+            emoji: { text: "👋", animation: "wave" },
+            overlay: true,
+            onOpen: function() {
+                console.log('Form opened');
+                // Ensure body doesn't scroll
+                document.body.style.overflow = 'hidden';
+            },
+            onClose: function() {
+                console.log('Form closed');
+                // Restore scrolling
+                document.body.style.overflow = '';
+            }
+        });
+    } else {
+        loadTallyScript();
+    }
+}
+
+function loadTallyScript() {
+    if (tallyScriptLoaded) return;
+    
+    const script = document.createElement('script');
+    script.src = 'https://tally.so/widgets/embed.js';
+    script.async = true;
+    script.onload = function() {
+        tallyScriptLoaded = true;
+        // Small delay to ensure script is fully initialized
+        setTimeout(() => {
+            if (window.Tally) {
+                window.Tally.openPopup('lbrlWB', {
+                    layout: 'modal',
+                    width: 380,
+                    height: 600,
+                    autoClose: 3000,
+                    emoji: { text: "👋", animation: "wave" },
+                    overlay: true,
+                    onOpen: function() {
+                        document.body.style.overflow = 'hidden';
+                    },
+                    onClose: function() {
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
+        }, 100);
+    };
+    document.head.appendChild(script);
+}
+
+// Pre-load Tally script when browser is idle
+if ('requestIdleCallback' in window) {
+    requestIdleCallback(() => {
+        loadTallyScript();
+    }, { timeout: 3000 });
+} else {
+    window.addEventListener('load', function() {
+        setTimeout(loadTallyScript, 2000);
+    });
+}
+
+// Keyboard shortcut (press 'F' to open form)
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'f' || e.key === 'F') {
+        if (!e.ctrlKey && !e.metaKey) {
+            e.preventDefault();
+            openTallyForm();
+        }
+    }
+});
+</script>
 
 <script>
 // Ultra-light Tally form opener - loads instantly, no timers, no auto-popups
