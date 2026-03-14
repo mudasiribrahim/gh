@@ -4112,145 +4112,6 @@ body.dark-mode .certificate-link:hover {
     background-color: #2980b9;
 }
 
-/* ========== COMPACT TESTIMONIAL SECTION ========== */
-.testimonial-container {
-    margin: 2em 0;
-    text-align: center;
-    padding: 25px;
-    background-color: var(--card-bg);
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    position: relative;
-    overflow: hidden;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.testimonial-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #4CAF50, #2196F3);
-}
-
-.testimonial-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-}
-
-.testimonial-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 5px;
-}
-
-.testimonial-icon {
-    font-size: 1.8rem;
-    color: #4CAF50;
-    background: rgba(76, 175, 80, 0.1);
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.testimonial-title {
-    font-size: 1.4rem;
-    color: var(--header-color);
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-}
-
-.testimonial-description {
-    font-size: 1rem;
-    line-height: 1.5;
-    color: var(--text-color);
-    margin: 0;
-    max-width: 500px;
-    font-weight: 400;
-}
-
-.testimonial-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, #4CAF50, #2E7D32);
-    color: white;
-    padding: 10px 25px;
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 3px 10px rgba(76, 175, 80, 0.2);
-    font-family: 'Montserrat', sans-serif;
-    margin-top: 5px;
-}
-
-.testimonial-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
-    background: linear-gradient(135deg, #45a049, #1B5E20);
-}
-
-/* Responsive design for testimonial section */
-@media (max-width: 768px) {
-    .testimonial-container {
-        padding: 20px 15px;
-        margin: 1.5em 0;
-    }
-    
-    .testimonial-header {
-        flex-direction: column;
-        gap: 8px;
-    }
-    
-    .testimonial-icon {
-        font-size: 1.5rem;
-        width: 40px;
-        height: 40px;
-    }
-    
-    .testimonial-title {
-        font-size: 1.2rem;
-    }
-    
-    .testimonial-description {
-        font-size: 0.95rem;
-    }
-    
-    .testimonial-button {
-        padding: 8px 20px;
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .testimonial-container {
-        padding: 15px;
-    }
-    
-    .testimonial-title {
-        font-size: 1.1rem;
-    }
-    
-    .testimonial-description {
-        font-size: 0.9rem;
-    }
-}
         
 /* GALLERY SECTION STYLES - UPDATED & FIXED */
 
@@ -8433,6 +8294,25 @@ const ShinyAppsComponent = () => {
     const [loadingViews, setLoadingViews] = useState(false);
     const [totalViews, setTotalViews] = useState(0);
     
+// Reviews rotator - add more reviews here
+const [currentReview, setCurrentReview] = useState(0);
+const reviews = [
+    {
+        text: "This app made the work very simple for me. It even helped me generate a flowchart with just a click.",
+        author: "Mr. Abdul Latif Abdul Rahaman (BSc Nursing Student)"
+    }
+];
+
+// Auto-rotate reviews every 10 seconds
+useEffect(() => {
+    const timer = setInterval(() => {
+        setCurrentReview((prev) => (prev + 1) % reviews.length);
+    }, 10000); // 10 seconds
+    
+    return () => clearInterval(timer);
+}, []);
+
+    
     // Fetch app views when component mounts
     useEffect(() => {
         const fetchAppViews = async () => {
@@ -8682,6 +8562,77 @@ const ShinyAppsComponent = () => {
                     Below is a collection of interactive R Shiny web tools that I have created to make analyses easier in R. All of my tools are open-source and are also stored on GitHub.
                 </p>
             </div>
+            
+{/* ===== REVIEW ROTATOR WITH LEFT FADE ===== */}
+<div id="software-testimonials" style={{ 
+    maxWidth: '700px',
+    margin: '20px auto 30px',
+    padding: '20px 25px',
+    backgroundColor: 'var(--card-bg)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '10px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+    textAlign: 'center',
+    overflow: 'hidden',
+    position: 'relative',
+    minHeight: '120px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+}}>
+    <div 
+        key={currentReview}
+        style={{
+            width: '100%',
+            animation: 'slideInOut 10s ease-in-out forwards'
+        }}
+    >
+        <div style={{
+            fontSize: '1.1rem',
+            lineHeight: '1.6',
+            color: 'var(--text-color)',
+            fontStyle: 'italic',
+            marginBottom: '10px'
+        }}>
+            "{reviews[currentReview].text}"
+        </div>
+        <div style={{
+            fontSize: '0.95rem',
+            color: 'var(--nav-hover)',
+            fontWeight: '500'
+        }}>
+            — {reviews[currentReview].author}
+        </div>
+        <div style={{
+            marginTop: '8px',
+            fontSize: '0.8rem',
+            color: 'var(--position-color)'
+        }}>
+            ⭐⭐⭐⭐⭐ CalcuStats
+        </div>
+    </div>
+</div>
+
+<style>{`
+    @keyframes slideInOut {
+        0% {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        5% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        90% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        100% {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+    }
+`}</style>
 
             {/* Stats sections - Now uses totalViews from state */}
             <div className="apps-stats">
@@ -9564,32 +9515,32 @@ const categoryDescriptions = {
         >
             Gallery
         </a>
-        {/* Testimonials link - goes to the testimonial section in Software page */}
-        <a 
-            href="#testimonials" 
-            onClick={(e) => { 
-                e.preventDefault(); 
-                setActiveSection('shiny');
-                setIsMobileMenuOpen(false);
-                // Close dropdown
-                const dropdown = e.target.closest('.dropdown');
-                if (dropdown) dropdown.classList.remove('active');
-                
-                // Scroll to testimonial section after a short delay
-                setTimeout(() => {
-                    const testimonialElement = document.querySelector('.testimonial-button-container');
-                    if (testimonialElement) {
-                        testimonialElement.scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'start' 
-                        });
-                    }
-                }, 100);
-            }}
-            className="dropdown-item"
-        >
-            Testimonials
-        </a>
+{/* Testimonials link - goes to the testimonial section in Software page */}
+<a 
+    href="#testimonials" 
+    onClick={(e) => { 
+        e.preventDefault(); 
+        setActiveSection('shiny');
+        setIsMobileMenuOpen(false);
+        // Close dropdown
+        const dropdown = e.target.closest('.dropdown');
+        if (dropdown) dropdown.classList.remove('active');
+        
+        // Scroll to testimonial section after a short delay
+        setTimeout(() => {
+            const testimonialElement = document.getElementById('software-testimonials');
+            if (testimonialElement) {
+                testimonialElement.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }
+        }, 100);
+    }}
+    className="dropdown-item"
+>
+    Testimonials
+</a>
     </div>
 </li>
   </ul>
@@ -9706,7 +9657,8 @@ const categoryDescriptions = {
                         { name: 'Software', section: 'shiny' },
                         { name: 'Blog', section: 'blog' },
                         { name: 'Teaching', section: 'teaching' },
-                        { name: 'Gallery', section: 'gallery' }
+                        { name: 'Gallery', section: 'gallery' },
+{ name: 'Testimonials', section: 'shiny', scrollTo: 'software-testimonials' }
                     ].map((tab, index) => (
                         <li key={index} style={{ marginBottom: '10px' }}>
                             <a href="#"
