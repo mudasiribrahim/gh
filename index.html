@@ -8299,11 +8299,15 @@ const [currentReview, setCurrentReview] = useState(0);
 const reviews = [
     {
         text: "This app made the work very simple for me. It even helped me generate a flowchart with just a click.",
-        country: "Ghana"
+        country: "Ghana",
+        app: "CalcuStats",
+        rating: 5
     },
     {
         text: "It is very easy to use, fast and efficient. No need wasting time again to calculate sample size. I recommend to all",
-        country: "Ghana"
+        country: "Ghana",
+        app: "CalcuStats",
+        rating: 5
     }
 ];
 
@@ -8568,69 +8572,98 @@ useEffect(() => {
             </div>
             
 {/* ===== REVIEW ROTATOR WITH LEFT FADE ===== */}
-<div id="software-testimonials" style={{ 
+<div style={{ 
     maxWidth: '700px',
     margin: '20px auto 30px',
-    padding: '20px 25px',
-    backgroundColor: 'var(--card-bg)',
-    border: '1px solid var(--border-color)',
-    borderRadius: '10px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
-    textAlign: 'center',
-    overflow: 'hidden',
-    position: 'relative',
-    minHeight: '140px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
+    textAlign: 'center'
 }}>
-    <div 
-        key={currentReview}
-        style={{
-            width: '100%',
-            animation: 'slideInOut 10s ease-in-out forwards'
-        }}
-    >
-        {/* App name with rating - on top with clearer yellow */}
-        <div style={{
-            fontSize: '1.1rem',
-            color: '#FFB800', /* Brighter, clearer yellow */
-            fontWeight: '700',
-            marginBottom: '8px',
-            letterSpacing: '0.5px',
-            textShadow: '0 1px 2px rgba(0,0,0,0.1)', /* Subtle shadow for depth */
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '5px'
+    {/* Title for Testimonials */}
+    <div style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '12px',
+        marginBottom: '15px',
+        padding: '8px 25px',
+        backgroundColor: 'var(--card-bg)',
+        border: '1px solid var(--border-color)',
+        borderRadius: '40px',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+    }}>
+        <i className="fas fa-star" style={{ color: '#FFB800', fontSize: '1.2rem' }}></i>
+        <span style={{
+            fontSize: '1.2rem',
+            fontWeight: '600',
+            color: 'var(--header-color)',
+            fontFamily: "'Montserrat', sans-serif"
         }}>
-            <span style={{ color: '#FFB800' }}>⭐⭐⭐⭐⭐</span>
-            <span style={{ color: 'var(--header-color)' }}>CalcuStats</span>
-        </div>
-        
-        {/* Review text - in the middle */}
-        <div style={{
-            fontSize: '1.1rem',
-            lineHeight: '1.6',
-            color: 'var(--text-color)',
-            fontStyle: 'italic',
-            marginBottom: '10px',
-            fontWeight: '400'
-        }}>
-            "{reviews[currentReview].text}"
-        </div>
-        
-        {/* Country with dash - at the bottom */}
-        <div style={{
-            fontSize: '0.95rem',
-            color: 'var(--nav-hover)',
-            fontWeight: '500',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '4px'
-        }}>
-            <span>—</span> {reviews[currentReview].country}
+            Testimonials on Shiny Web Apps
+        </span>
+        <i className="fas fa-star" style={{ color: '#FFB800', fontSize: '1.2rem' }}></i>
+    </div>
+
+    {/* Testimonial Card */}
+    <div id="software-testimonials" style={{ 
+        padding: '20px 25px',
+        backgroundColor: 'var(--card-bg)',
+        border: '1px solid var(--border-color)',
+        borderRadius: '10px',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+        overflow: 'hidden',
+        position: 'relative',
+        minHeight: '140px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }}>
+        <div 
+            key={currentReview}
+            style={{
+                width: '100%',
+                animation: 'slideInOut 10s ease-in-out forwards'
+            }}
+        >
+            {/* App name with dynamic stars - on top */}
+            <div style={{
+                fontSize: '1.1rem',
+                fontWeight: '700',
+                marginBottom: '8px',
+                letterSpacing: '0.5px',
+                textShadow: '0 1px 2px rgba(0,0,0,0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '5px'
+            }}>
+                <span style={{ color: '#FFB800' }}>
+                    {'⭐'.repeat(reviews[currentReview].rating)}
+                </span>
+                <span style={{ color: 'var(--header-color)' }}>{reviews[currentReview].app}</span>
+            </div>
+            
+            {/* Review text - in the middle */}
+            <div style={{
+                fontSize: '1.1rem',
+                lineHeight: '1.6',
+                color: 'var(--text-color)',
+                fontStyle: 'italic',
+                marginBottom: '10px',
+                fontWeight: '400'
+            }}>
+                "{reviews[currentReview].text}"
+            </div>
+            
+            {/* Country with dash - at the bottom */}
+            <div style={{
+                fontSize: '0.95rem',
+                color: 'var(--nav-hover)',
+                fontWeight: '500',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '4px'
+            }}>
+                <span>—</span> {reviews[currentReview].country}
+            </div>
         </div>
     </div>
 </div>
