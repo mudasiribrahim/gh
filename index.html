@@ -8295,7 +8295,15 @@ const ShinyAppsComponent = () => {
     const [totalViews, setTotalViews] = useState(0);
     
 // Reviews rotator - add more reviews here
-const [currentReview, setCurrentReview] = useState(0);
+const [currentReview, setCurrentReview] = useState(() => {
+    // Try to load saved review index from localStorage
+    const savedReview = localStorage.getItem('currentReviewIndex');
+    return savedReview ? parseInt(savedReview, 10) : 0;
+});
+const [isInitialized, setIsInitialized] = useState(() => {
+    // Check if we've initialized before
+    return localStorage.getItem('reviewsInitialized') === 'true';
+});
 const reviews = [
     {
         text: "This app made the work very simple for me. It even helped me generate a flowchart with just a click.",
@@ -8308,18 +8316,40 @@ const reviews = [
         country: "Ghana",
         app: "CalcuStats",
         rating: 5
+    },
+    {
+        text: "My experience using CalcuStats has been really good. The app is easy to use and very straightforward, even if you're not strong in statistics. It quickly gives accurate results (a breakdown of the results) once you enter your values. It has saved me a lot of time. One more special feature I am very passionate about is the non-response rate. It's a helpful and reliable tool for sample size calculation, to say the least.",
+        country: "Ghana",
+        app: "CalcuStats",
+        rating: 5
     }
 ];
 
-// Auto-rotate reviews every 10 seconds
+// Auto-rotate reviews every 15 seconds - FIXED to prevent double rendering and maintain state
 useEffect(() => {
+    // Mark as initialized after first render and save to localStorage
+    if (!isInitialized) {
+        setIsInitialized(true);
+        localStorage.setItem('reviewsInitialized', 'true');
+    }
+    
+    // Set up the interval only after initialization
     const timer = setInterval(() => {
-        setCurrentReview((prev) => (prev + 1) % reviews.length);
-    }, 10000); // 10 seconds
+        setCurrentReview((prev) => {
+            const nextReview = (prev + 1) % reviews.length;
+            // Save the new index to localStorage
+            localStorage.setItem('currentReviewIndex', nextReview.toString());
+            return nextReview;
+        });
+    }, 15000); // 15 seconds
     
     return () => clearInterval(timer);
-}, []);
+}, []); // Remove isInitialized from dependencies - empty array means this runs once on mount
 
+// Save review index whenever it changes
+useEffect(() => {
+    localStorage.setItem('currentReviewIndex', currentReview.toString());
+}, [currentReview]);
     
     // Fetch app views when component mounts
     useEffect(() => {
@@ -8601,66 +8631,81 @@ useEffect(() => {
         <i className="fas fa-star" style={{ color: '#FFB800', fontSize: '1.2rem' }}></i>
     </div>
 
-    {/* Testimonial Card */}
+    {/* Testimonial Card - FIXED HEIGHT to accommodate longest review */}
     <div id="software-testimonials" style={{ 
-        padding: '20px 25px',
+        padding: '25px 30px',
         backgroundColor: 'var(--card-bg)',
         border: '1px solid var(--border-color)',
         borderRadius: '10px',
         boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
         overflow: 'hidden',
         position: 'relative',
-        minHeight: '140px',
+        height: '280px', /* Increased height to show full content */
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
     }}>
         <div 
             key={currentReview}
+            className={!isInitialized ? 'testimonial-first-load' : ''}
             style={{
                 width: '100%',
-                animation: 'slideInOut 10s ease-in-out forwards'
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between', /* Changed to space-between */
+                animation: isInitialized ? 'slideInOut 15s ease-in-out forwards' : 'none'
             }}
         >
             {/* App name with dynamic stars - on top */}
             <div style={{
-                fontSize: '1.1rem',
+                fontSize: '1.2rem',
                 fontWeight: '700',
-                marginBottom: '8px',
+                marginBottom: '15px',
                 letterSpacing: '0.5px',
                 textShadow: '0 1px 2px rgba(0,0,0,0.1)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '5px'
+                gap: '8px',
+                flexShrink: 0
             }}>
-                <span style={{ color: '#FFB800' }}>
+                <span style={{ color: '#FFB800', fontSize: '1.3rem' }}>
                     {'⭐'.repeat(reviews[currentReview].rating)}
                 </span>
                 <span style={{ color: 'var(--header-color)' }}>{reviews[currentReview].app}</span>
             </div>
             
-            {/* Review text - in the middle */}
+            {/* Review text - FULL CONTENT - no max-height */}
             <div style={{
                 fontSize: '1.1rem',
-                lineHeight: '1.6',
+                lineHeight: '1.7',
                 color: 'var(--text-color)',
                 fontStyle: 'italic',
-                marginBottom: '10px',
-                fontWeight: '400'
+                marginBottom: '15px',
+                fontWeight: '400',
+                flex: '1 1 auto', /* Allows it to take available space */
+                display: 'flex',
+                alignItems: 'center',
+                textAlign: 'center',
+                padding: '0 5px'
             }}>
                 "{reviews[currentReview].text}"
             </div>
             
             {/* Country with dash - at the bottom */}
             <div style={{
-                fontSize: '0.95rem',
+                fontSize: '1rem',
                 color: 'var(--nav-hover)',
                 fontWeight: '500',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '4px'
+                gap: '6px',
+                flexShrink: 0,
+                paddingTop: '5px',
+                borderTop: '1px dashed rgba(52, 152, 219, 0.2)',
+                marginTop: '5px'
             }}>
                 <span>—</span> {reviews[currentReview].country}
             </div>
@@ -8674,11 +8719,11 @@ useEffect(() => {
             opacity: 0;
             transform: translateX(30px);
         }
-        5% {
+        3% {
             opacity: 1;
             transform: translateX(0);
         }
-        90% {
+        95% {
             opacity: 1;
             transform: translateX(0);
         }
@@ -8686,6 +8731,13 @@ useEffect(() => {
             opacity: 0;
             transform: translateX(-30px);
         }
+    }
+    
+    /* Ensure first testimonial appears correctly */
+    .testimonial-first-load {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: translateX(0) !important;
     }
 `}</style>
 
