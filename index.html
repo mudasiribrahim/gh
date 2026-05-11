@@ -6991,6 +6991,8 @@ const loadBlogPostsWithFallback = async () => {
     // Publication data organized by year
     const publicationsByYear = {
         "2026": [
+                                          
+                                          {id: 1, content: ` Nukpezah, R. N., Tadri, M., Evans, R. A., Niyagnan, T. N., &  <strong>Ibrahim, M. M.</strong>.  (2026). The effect of night shift work on daytime sleepiness and physiological health among pediatric nurses in Northern Ghana: a cross-sectional survey.<em> Scientific Reports</em>, XX:XXX. doi: <a href=" https://doi.org/10.1038/s41598-026-52977-8" target="_blank" rel="noopener noreferrer" className="doi-link">10.1038/s41598-026-52977-8</a>`},
                                           {id: 1, content: ` Monne, R., <strong>Ibrahim, M. M.</strong>, Wuni, A., Issah, B., Atirekpere, F. A., Abdul-Razak, M., Abdul Rahaman, A., & Sisala, I. M.  (2026). The Effect of Social Media Use on Nursing Students’ General Fatigue: The Mediating Roles of Academic Engagement and Academic Procrastination.<em> International Journal of Africa Nursing Sciences</em>, 25:101035. doi: <a href="https://doi.org/10.1016/j.ijans.2026.101035" target="_blank" rel="noopener noreferrer" className="doi-link">10.1016/j.ijans.2026.101035</a>`},
                                 {id: 1, content: ` <strong>Ibrahim, M. M.</strong>, Sisala, I. M., Puotege, S. K., Tusungu, M., Asakiya, B., Yakubu, Z., Chanayireh, L., & Wuni, A. (2026). Work engagement and its relationship with workplace performance among midwives in public health facilities: A cross-sectional study.<em> International Journal of Africa Nursing Sciences</em>, 24:101028. doi: <a href="https://doi.org/10.1016/j.ijans.2026.101028" target="_blank" rel="noopener noreferrer" className="doi-link">10.1016/j.ijans.2026.101028</a>`},
                       {id: 2, content: `Monne, R., <strong>Ibrahim, M. M.</strong>, Alhassan, A., Abdul Kadir, A. B., Christiana, A., Jambedu, A. A., Owusu, S., Christopher, A., Abdulai, A., & Wuni, A. (2026). Lifetime Prevalence, Patterns, and Associated Factors of Psychoactive Substance Abuse Among Commercial Male Tricycle Drivers in Northern Ghana: A Cross-Sectional Survey.<em> Pan African Science Journal</em>, 1(6), 1-16. doi: <a href="https://doi.org/10.47787/stzvwm55" target="_blank" rel="noopener noreferrer" className="doi-link">10.47787/stzvwm55</a>`},
@@ -7109,7 +7111,7 @@ const loadBlogPostsWithFallback = async () => {
                         <div style={{ width: '1px', backgroundColor: 'var(--border-color)' }}></div>
                         <div style={{ textAlign: 'center' }}>
                             <div style={{ fontSize: '0.8rem', color: 'var(--position-color)', fontWeight: '600' }}>Citations</div>
-                            <div style={{ fontSize: '1.4rem', fontWeight: '700', color: '#e74c3c', lineHeight: '1.2' }}>125</div>
+                            <div style={{ fontSize: '1.4rem', fontWeight: '700', color: '#e74c3c', lineHeight: '1.2' }}>131</div>
                         </div>
                     </div>
                     
@@ -8479,34 +8481,374 @@ const categoryDescriptions = {
     </div>
 </div>
 
-            {/* Back to Top Button */}
-            <div>
-                <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                        style={{
-                            background: 'rgba(255, 255, 255, 0.1)',
-                            border: '1px solid rgba(255, 255, 255, 0.3)',
-                            color: 'white',
-                            padding: '8px 20px',
-                            borderRadius: '4px',
-                            fontSize: '0.9rem',
-                            cursor: 'pointer',
-                            transition: 'all 0.3s ease',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px'
-                        }}
-                        onMouseOver={(e) => {
-                            e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
-                            e.target.style.borderColor = 'white';
-                        }}
-                        onMouseOut={(e) => {
-                            e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-                            e.target.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-                        }}>
-                    <i className="fas fa-arrow-up"></i>
-                    Back to Top
-                </button>
+       {/* Two Buttons: Back to Top + Print */}
+<div style={{display: 'flex', gap: '15px'}}>
+    {/* Back to Top Button */}
+    <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            style={{
+                background: 'rgba(255, 255, 255, 0.1)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                color: 'white',
+                padding: '8px 20px',
+                borderRadius: '4px',
+                fontSize: '0.9rem',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+            }}>
+        <i className="fas fa-arrow-up"></i>
+        Back to Top
+    </button>
+    
+    {/* Print Button - Profile on all pages EXCEPT About (no blank page) */}
+    <button onClick={() => {
+        // Get current active section
+        const currentSection = activeSection;
+        
+        // Get current theme
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        
+        // Get the page content (what's currently being viewed)
+        const mainContent = document.querySelector('.content-container');
+        
+        // Get the Connect With Me section
+        const connectWithMeSection = document.querySelector('div[style*="backgroundColor: #ffffff"]');
+        
+        // Create print window
+        const printWindow = window.open('', '_blank');
+        
+        // Get all styles from original page
+        const styles = document.querySelectorAll('style, link[rel="stylesheet"]');
+        let stylesHTML = '';
+        styles.forEach(style => {
+            if (style.tagName === 'STYLE') {
+                stylesHTML += `<style>${style.innerHTML}</style>`;
+            } else if (style.tagName === 'LINK') {
+                stylesHTML += `<link rel="${style.rel}" href="${style.href}">`;
+            }
+        });
+        
+        printWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Mudasir Mohammed Ibrahim - Official Website</title>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                ${stylesHTML}
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+                <style>
+                    * {
+                        margin: 0;
+                        padding: 0;
+                        box-sizing: border-box;
+                    }
+                    
+                    body {
+                        font-family: 'Open Sans', sans-serif;
+                        padding: 40px;
+                        max-width: 1000px;
+                        margin: 0 auto;
+                        background-color: ${isDarkMode ? '#121212' : '#ffffff'} !important;
+                        color: ${isDarkMode ? '#f0f0f0' : '#000000'} !important;
+                        line-height: 1.6;
+                    }
+                    
+                    /* Hide navigation and interactive elements */
+                    .full-width-header,
+                    .mobile-menu-toggle,
+                    .nav-container,
+                    .header-right,
+                    .gallery-controls,
+                    .gallery-overlay,
+                    .modal-nav,
+                    .modal-close,
+                    .blog-sidebar,
+                    .year-map-sidebar,
+                    .blog-load-more,
+                    .gallery-pagination,
+                    .filter-btn,
+                    .search-suggestions,
+                    button:not(.keep-in-print) {
+                        display: none !important;
+                    }
+                    
+                    /* Profile Section - FIRST PAGE (only for non-about pages) */
+                    .print-profile-section {
+                        text-align: center;
+                        margin-bottom: 50px;
+                        padding-bottom: 30px;
+                        border-bottom: 2px solid ${isDarkMode ? '#444' : '#ddd'};
+                        page-break-after: avoid;
+                        break-inside: avoid;
+                    }
+                    
+                    .print-profile-image-container {
+                        position: relative;
+                        width: 200px;
+                        height: 240px;
+                        margin: 0 auto 20px;
+                        border-radius: 8px;
+                        overflow: hidden;
+                        border: 4px solid ${isDarkMode ? '#555' : '#ddd'};
+                        background-color: ${isDarkMode ? '#2a2a2a' : '#f5f5f5'};
+                    }
+                    
+                    .print-profile-image {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                    
+                    .print-profile-name {
+                        font-size: 28px;
+                        font-weight: 700;
+                        color: ${isDarkMode ? '#ffffff' : '#222222'};
+                        margin-bottom: 8px;
+                        font-family: 'Open Sans', sans-serif;
+                    }
+                    
+                    .print-profile-altname {
+                        font-size: 16px;
+                        color: ${isDarkMode ? '#cccccc' : '#555555'};
+                        font-style: italic;
+                        margin-bottom: 15px;
+                    }
+                    
+                    .print-contact-info {
+                        margin-top: 20px;
+                    }
+                    
+                    .print-contact-item {
+                        margin-bottom: 12px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 10px;
+                        font-size: 14px;
+                        color: ${isDarkMode ? '#f0f0f0' : '#333333'};
+                    }
+                    
+                    .print-contact-icon {
+                        color: #3498db;
+                        font-size: 16px;
+                    }
+                    
+                    .print-social-icons {
+                        display: flex;
+                        justify-content: center;
+                        gap: 20px;
+                        margin-top: 25px;
+                    }
+                    
+                    .print-social-icon {
+                        color: ${isDarkMode ? '#cccccc' : '#555555'};
+                        font-size: 22px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                    }
+                    
+                    /* Main content styles - keep original look */
+                    .content-container {
+                        margin: 0 auto;
+                    }
+                    
+                    /* For About page - ensure existing profile shows properly */
+                    .profile-section {
+                        display: block !important;
+                    }
+                    
+                    .section, .experience-item, .education-item, .publication-item, .blog-post-item {
+                        page-break-inside: avoid;
+                        break-inside: avoid;
+                        margin-bottom: 25px;
+                    }
+                    
+                    h2 {
+                        border-bottom: 2px solid ${isDarkMode ? '#444' : '#ddd'};
+                        padding-bottom: 8px;
+                        margin-top: 30px;
+                        margin-bottom: 20px;
+                        color: ${isDarkMode ? '#ffffff' : '#000000'};
+                    }
+                    
+                    /* Connect With Me section */
+                    .connect-with-me-section {
+                        margin-top: 50px;
+                        padding-top: 30px;
+                        border-top: 2px solid ${isDarkMode ? '#444' : '#ddd'};
+                        text-align: center;
+                    }
+                    
+                    /* Website note at bottom */
+                    .print-website-note {
+                        text-align: center;
+                        margin-top: 40px;
+                        padding: 20px;
+                        border-top: 1px solid ${isDarkMode ? '#444' : '#ddd'};
+                        font-size: 12px;
+                        background-color: ${isDarkMode ? '#1e1e1e' : '#f8f9fa'};
+                        border-radius: 8px;
+                    }
+                    
+                    .print-website-note a {
+                        color: #3498db;
+                        text-decoration: underline;
+                    }
+                    
+                    /* IMPORTANT: Hide duplicate link text that browsers add */
+                    @media print {
+                        a[href]:after {
+                            display: none !important;
+                            content: none !important;
+                        }
+                        
+                        body {
+                            padding: 20px;
+                        }
+                        
+                        .print-profile-section {
+                            page-break-after: avoid;
+                        }
+                    }
+                </style>
+            </head>
+            <body class="${isDarkMode ? 'dark-mode' : ''}">
+        `);
+        
+        // ========== PROFILE SECTION - ONLY ADD IF NOT ON ABOUT PAGE ==========
+        if (currentSection !== 'about') {
+            printWindow.document.write(`
+                <div class="print-profile-section">
+                    <div class="print-profile-image-container">
+                        <img 
+                            src="https://raw.githubusercontent.com/mudasiribrahim/gh/main/mysecondprofile.jpg" 
+                            alt="Mudasir Mohammed Ibrahim"
+                            class="print-profile-image"
+                        />
+                    </div>
+                    <div class="print-profile-name">Mudasir Mohammed Ibrahim</div>
+                    <div class="print-profile-altname">Mohammed Mudasir Ibrahim</div>
+                    
+                    <div class="print-contact-info">
+                        <div class="print-contact-item">
+                            <i class="fas fa-building print-contact-icon"></i>
+                            <span>Department of Internal Medicine (M3), Tamale Teaching Hospital</span>
+                        </div>
+                        <div class="print-contact-item">
+                            <i class="fas fa-envelope print-contact-icon"></i>
+                            <span>mohammed.mudasir@tth.gov.gh</span>
+                        </div>
+                    </div>
+                    
+                    <div class="print-social-icons">
+                        <a href="https://orcid.org/0000-0002-9049-8222" target="_blank" class="print-social-icon" title="ORCID">
+                            <i class="fab fa-orcid"></i>
+                        </a>
+                        <a href="https://scholar.google.com/citations?user=xEFzAvgAAAAJ&hl=en" target="_blank" class="print-social-icon" title="Google Scholar">
+                            <i class="fas fa-graduation-cap"></i>
+                        </a>
+                        <a href="https://www.webofscience.com/wos/author/record/HPC-2085-2023" target="_blank" class="print-social-icon" title="Web of Science">
+                            <i class="fas fa-book-open"></i>
+                        </a>
+                        <a href="https://github.com/shinyhealthtools" target="_blank" class="print-social-icon" title="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/mudasir-mohammed-ibrahim-16b5141b0" target="_blank" class="print-social-icon" title="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+            `);
+        }
+        
+        // ========== PAGE CONTENT (What user is viewing) ==========
+        if (mainContent) {
+            const contentClone = mainContent.cloneNode(true);
+            
+            // Remove any duplicate buttons or unwanted elements from clone
+            const removeSelectors = [
+                '.gallery-controls', '.blog-sidebar', '.year-map-sidebar', 
+                '.blog-load-more', '.gallery-pagination', '.filter-btn',
+                '.search-suggestions', '.modal', '.back-to-top',
+                'button', '.mobile-menu-toggle'
+            ];
+            removeSelectors.forEach(selector => {
+                const elements = contentClone.querySelectorAll(selector);
+                elements.forEach(el => el.remove());
+            });
+            
+            printWindow.document.write(contentClone.innerHTML);
+        }
+        
+        // ========== CONNECT WITH ME SECTION ==========
+        if (connectWithMeSection) {
+            const connectClone = connectWithMeSection.cloneNode(true);
+            printWindow.document.write(`
+                <div class="connect-with-me-section">
+                    ${connectClone.innerHTML}
+                </div>
+            `);
+        } else {
+            printWindow.document.write(`
+                <div class="connect-with-me-section">
+                    <h4 style="margin-bottom: 20px;">
+                        <i class="fas fa-share-alt"></i> Connect With Me
+                    </h4>
+                    <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                        <a href="https://linkedin.com/in/mudasir-mohammed-ibrahim-16b5141b0" target="_blank" style="color: #0077b5; font-size: 24px;"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/mudassiribrahim81" target="_blank" style="color: #E4405F; font-size: 24px;"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/mudassiribrahim81" target="_blank" style="color: #1877F2; font-size: 24px;"><i class="fab fa-facebook"></i></a>
+                        <a href="https://api.whatsapp.com/send?phone=233549343058" target="_blank" style="color: #25D366; font-size: 24px;"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://x.com/WhizMuda" target="_blank" style="color: #000000; font-size: 24px;"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            `);
+        }
+        
+        // ========== WEBSITE NOTE (NO duplicate links) ==========
+        printWindow.document.write(`
+            <div class="print-website-note">
+                <i class="fas fa-globe" style="margin-right: 8px;"></i>
+                <strong>For more information, updates, and the latest content, visit official website:</strong>
+                <br>
+                <a href="https://mudasiribrahim.github.io/gh/">https://mudasiribrahim.github.io/gh/</a>
+                <br><br>
+                <small>© ${new Date().getFullYear()} Mudasir Mohammed Ibrahim. All Rights Reserved.</small>
+                <br>
+                <small>Printed: ${new Date().toLocaleString()}</small>
             </div>
+        `);
+        
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        
+        // Print after content loads
+        printWindow.onload = function() {
+            printWindow.print();
+            printWindow.close();
+        };
+    }}
+            style={{
+                background: 'rgba(255, 255, 255, 0.1)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                color: 'white',
+                padding: '8px 20px',
+                borderRadius: '4px',
+                fontSize: '0.9rem',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+            }}>
+        <i className="fas fa-print"></i>
+        Print Page
+    </button>
+</div>
         </div>
     </div>
 </footer>
