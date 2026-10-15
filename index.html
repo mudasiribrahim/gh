@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="only light">
+    <meta name="supported-color-schemes" content="light">
     <title>Mudasir Mohammed Ibrahim - Official Website</title>
     <!-- Meta Tags for Google -->
     <meta name="title" content="Mudasir Mohammed Ibrahim - Official Website">
@@ -41,7 +43,12 @@
             box-sizing: border-box;
         }
 
+        html, body, #root, .app-layout, .main-content { background-color: var(--bg-color, #ffffff); }
+        html { color-scheme: light; min-height: 100%; }
+        html:has(body.dark-mode) { background-color: #121212; color-scheme: dark; }
+
         :root {
+            --bg-color: #ffffff;
             --text-color: #000000;
             --header-color: #000000;
             --border-color: #aaa;
@@ -53,7 +60,7 @@
             --nav-text: #fff;
             --nav-hover: #3498db;
             --nav-border: #34495e;
-            --sidebar-width: 210px;
+            --page-bg: #eceff1;
         }
 
         body.dark-mode {
@@ -70,6 +77,7 @@
             --nav-bg: #b33939;
             --nav-text: #ffffff;
             --nav-border: #8b2e2e;
+            --page-bg: #0a0a0a;
         }
 
         body {
@@ -77,7 +85,7 @@
             font-weight: 500;
             line-height: 1.6;
             color: var(--text-color);
-            background-color: var(--bg-color, #ffffff);
+            background-color: var(--page-bg);
             padding: 0;
             margin: 0;
             transition: background-color 0.3s ease, color 0.3s ease;
@@ -93,6 +101,7 @@
             flex-direction: column;
         }
 
+
         /* ====== LAYOUT: FLOATING SIDEBAR + MAIN CONTENT ====== */
         .app-layout {
             display: flex;
@@ -102,208 +111,148 @@
             position: relative;
         }
 
-        /* ====== FLOATING SIDEBAR ====== */
-        .floating-sidebar {
-            width: var(--sidebar-width);
-            flex-shrink: 0;
-            padding: 30px 15px 30px 25px;
-            align-self: flex-start;
+        /* ====== TOP TABS NAVIGATION (in the body) ====== */
+        .top-tabs-wrap {
             position: sticky;
-            top: 30px;
-            max-height: calc(100vh - 60px);
-            overflow-y: auto;
-            margin-top: 40px;
-            margin-left: 20px;
-            scrollbar-width: thin;
-            scrollbar-color: var(--border-color) transparent;
+            top: 0;
+            z-index: 900;
+            background-color: var(--bg-color, #ffffff);
+            padding-top: 28px;
+            transition: background-color 0.3s ease;
         }
-
-        .floating-sidebar::-webkit-scrollbar { width: 4px; }
-        .floating-sidebar::-webkit-scrollbar-track { background: transparent; }
-        .floating-sidebar::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 4px; }
-
-        .sidebar-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 14px 12px 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
-            transition: all 0.3s ease;
-            position: relative;
+        .top-tabs-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 40px;
         }
-
-        .sidebar-card:hover {
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
-            border-color: var(--nav-hover);
-        }
-
-        .sidebar-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 20px; right: 20px; height: 3px;
-            background: linear-gradient(90deg, var(--nav-bg), var(--nav-hover));
-            border-radius: 0 0 3px 3px;
-            opacity: 0.6;
-        }
-
-        .sidebar-card-header {
-            text-align: center;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 8px;
-        }
-
-        .sidebar-card-header .sidebar-logo {
-            font-family: 'Open Sans', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--header-color);
-            text-decoration: none;
-            line-height: 1.3;
-            display: block;
-            transition: color 0.3s;
-            letter-spacing: -0.3px;
-        }
-
-        .sidebar-card-header .sidebar-logo:hover { color: var(--nav-hover); }
-
-        .sidebar-card-header .sidebar-subtitle {
-            font-size: 0.68rem;
-            font-weight: 500;
-            color: var(--position-color);
-            letter-spacing: 0.4px;
-            margin-top: 3px;
-            text-transform: uppercase;
-        }
-
-        .sidebar-nav { display: flex; flex-direction: column; gap: 2px; }
-
-        .sidebar-nav-item {
+        .top-tabs-shell {
             display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 7px 10px;
-            color: var(--text-color);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            border-radius: 9px;
-            transition: all 0.22s ease;
-            cursor: pointer;
-            border: 1px solid transparent;
-            position: relative;
-        }
-
-        .sidebar-nav-item i {
-            font-size: 0.85rem;
-            width: 18px;
-            text-align: center;
-            color: var(--position-color);
-            transition: color 0.22s ease;
-            flex-shrink: 0;
-        }
-
-        .sidebar-nav-item:hover {
-            background-color: var(--light-bg);
-            border-color: var(--border-color);
-            transform: translateX(3px);
-        }
-
-        .sidebar-nav-item:hover i { color: var(--nav-hover); }
-
-        .sidebar-nav-item.active {
-            background: #2c3e50;
-            color: #fff;
-            border-color: transparent;
-            font-weight: 600;
+            align-items: stretch;
+            gap: 2px;
+            padding: 4px;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            background-color: var(--card-bg);
             box-shadow: none;
         }
-
-        /* Neutral, professional selected-tab colour in dark mode */
-        body.dark-mode .sidebar-nav-item.active,
-        body.dark-mode .filter-btn.active,
-        body.dark-mode .archive-button.active,
-        body.dark-mode .page-btn.active {
+        .top-tabs {
+            position: relative;
+            flex: 1 1 auto;
+            min-width: 0;
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            gap: 2px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .top-tabs::-webkit-scrollbar { display: none; }
+        .top-tabs-indicator {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            border-radius: 10px;
+            background: #2c3e50;
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.25);
+            transition: transform 0.35s cubic-bezier(0.65, 0.05, 0.36, 1), width 0.35s cubic-bezier(0.65, 0.05, 0.36, 1);
+            z-index: 0;
+            pointer-events: none;
+        }
+        body.dark-mode .top-tabs-indicator {
             background: #3a3f47;
-            color: #fff;
-            border-color: #555;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
-        body.dark-mode .archive-button.active .post-count-badge {
-            background-color: #fff;
-            color: #3a3f47;
-        }
-
-        .sidebar-nav-item.active i { color: #fff; }
-
-        .sidebar-card-footer {
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid var(--border-color);
+        .top-tab {
+            position: relative;
+            z-index: 1;
+            flex: 1 1 auto;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 8px;
-        }
-
-        .sidebar-social-icons {
-            display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 7px;
-        }
-
-        .sidebar-social-icon {
+            gap: 6px;
+            padding: 8px 9px;
+            background: none;
+            border: none;
+            border-radius: 10px;
             color: var(--position-color);
-            font-size: 0.8rem;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background-color: var(--light-bg);
-            transition: all 0.25s ease;
-            text-decoration: none;
-            border: 1px solid transparent;
-        }
-
-        .sidebar-social-icon:hover {
-            background-color: var(--nav-hover);
-            color: #fff;
-            transform: translateY(-3px);
-            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
-        }
-
-        .sidebar-theme-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            cursor: pointer;
-            padding: 6px 12px;
-            border-radius: 22px;
-            background-color: var(--light-bg);
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            font-size: 0.78rem;
-            font-weight: 600;
             font-family: 'Open Sans', sans-serif;
-            width: 100%;
-            letter-spacing: 0.3px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: color 0.25s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .top-tab i {
+            font-size: 0.78rem;
+            transition: transform 0.25s ease, color 0.25s ease;
+        }
+        .top-tab:hover { color: var(--nav-hover); }
+        .top-tab:hover i { transform: translateY(-2px); }
+        .top-tab.active,
+        .top-tab.active:hover { color: #ffffff; }
+        .top-tab.active i { transform: none; color: #ffffff; }
+        .top-tab:focus-visible { outline: 2px solid var(--nav-hover); outline-offset: 1px; }
+
+        /* ====== TAB BAR AUTOFIT (container queries: adapts to the bar's own width) ====== */
+        .top-tabs-shell { container-type: inline-size; container-name: tabbar; }
+        /* Tier 2 - medium: all labels, tighter spacing */
+        @container tabbar (max-width: 699px) {
+            .top-tab { padding: 8px 6px; font-size: 0.74rem; gap: 4px; }
+            .top-tab i { font-size: 0.72rem; }
+        }
+        /* Tier 3 - compact: icons only, the active tab shows its label */
+        @container tabbar (max-width: 599px) {
+            .top-tab { flex: 0 1 auto; padding: 8px 9px; }
+            .top-tab span { display: none; }
+            .top-tab.active span { display: inline; }
+            .top-tab i { font-size: 0.85rem; }
+        }
+        /* Tier 4 - tiny: icons only, equal widths so everything always fits */
+        @container tabbar (max-width: 359px) {
+            .top-tab { flex: 1 1 0; min-width: 0; padding: 8px 0; gap: 0; }
+            .top-tab.active span { display: none; }
+            .top-tab-theme { width: 32px; }
         }
 
-        .sidebar-theme-toggle:hover {
-            background-color: var(--skill-bg);
-            border-color: var(--nav-hover);
-            color: var(--nav-hover);
+        .top-tabs-divider {
+            flex: 0 0 1px;
+            align-self: stretch;
+            margin: 6px 3px;
+            background-color: var(--border-color);
+            opacity: 0.7;
         }
-
-        .sidebar-theme-toggle i { font-size: 0.9rem; }
+        .top-tab-theme {
+            position: relative;
+            z-index: 1;
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            background: none;
+            border: none;
+            border-radius: 10px;
+            color: var(--position-color);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: color 0.25s ease, background-color 0.25s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .top-tab-theme:hover { color: var(--nav-hover); background-color: var(--light-bg); }
+        .top-tab-theme i { transition: transform 0.4s ease; }
+        .top-tab-theme:hover i { transform: rotate(-15deg) scale(1.1); }
+        .top-tab-theme:focus-visible { outline: 2px solid var(--nav-hover); outline-offset: 1px; }
 
         /* ====== MAIN CONTENT ====== */
         .main-content {
-            flex: 1;
+            flex: 0 1 900px;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--bg-color, #ffffff);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -314,101 +263,11 @@
         .content-container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 40px 40px 40px 20px;
+            padding: 40px 40px;
             flex: 1;
             width: 100%;
         }
-
-        /* ====== MOBILE NAV (hamburger + drawer) ====== */
-        .mnav-bar {
-            display: none;
-            background-color: var(--nav-bg);
-            color: var(--nav-text);
-            height: 60px;
-            padding: 0 12px 0 20px;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-        .mnav-title {
-            font-size: 1rem; font-weight: 600; color: var(--nav-text);
-            text-decoration: none; white-space: nowrap; overflow: hidden;
-            text-overflow: ellipsis; flex: 1; margin-right: 10px;
-        }
-        .mnav-toggle {
-            background: none; border: none; color: var(--nav-text);
-            font-size: 1.5rem; cursor: pointer; width: 44px; height: 44px;
-            border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; flex-shrink: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .mnav-toggle:active { background-color: rgba(255, 255, 255, 0.15); }
-        .mnav-backdrop {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0, 0, 0, 0.55); z-index: 2000;
-            animation: mnavFade 0.2s ease;
-        }
-        .mnav-drawer {
-            position: fixed; top: 0; right: 0; bottom: 0;
-            width: 280px; max-width: 85vw;
-            background-color: var(--nav-bg); color: var(--nav-text);
-            z-index: 2001; overflow-y: auto; display: flex; flex-direction: column;
-            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.35);
-            animation: mnavSlide 0.25s ease;
-        }
-        @keyframes mnavFade { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes mnavSlide { from { transform: translateX(100%); } to { transform: translateX(0); } }
-        .mnav-drawer-head {
-            position: relative; padding: 24px 50px 15px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15); text-align: center;
-        }
-        .mnav-drawer-name { font-size: 1.2rem; font-weight: 700; color: var(--nav-text); }
-        .mnav-drawer-sub {
-            font-size: 0.75rem; color: rgba(255, 255, 255, 0.7);
-            margin-top: 3px; text-transform: uppercase; letter-spacing: 0.4px;
-        }
-        .mnav-close {
-            position: absolute; top: 10px; right: 10px; width: 36px; height: 36px;
-            border: none; border-radius: 50%; background: rgba(255, 255, 255, 0.12);
-            color: var(--nav-text); font-size: 1.1rem; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .mnav-list { padding: 12px 0; display: flex; flex-direction: column; }
-        .mnav-link {
-            display: flex; align-items: center; gap: 12px; width: 100%;
-            padding: 14px 24px; background: none; border: none;
-            border-left: 4px solid transparent; color: var(--nav-text);
-            font-family: 'Open Sans', sans-serif; font-size: 0.95rem;
-            font-weight: 500; text-align: left; cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .mnav-link i { font-size: 1rem; width: 20px; text-align: center; opacity: 0.85; }
-        .mnav-link:active { background-color: rgba(255, 255, 255, 0.1); }
-        .mnav-link.active {
-            background-color: rgba(255, 255, 255, 0.14);
-            border-left-color: #ffffff; font-weight: 700;
-        }
-        .mnav-foot {
-            margin-top: auto; padding: 20px 15px 25px;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            display: flex; flex-direction: column; align-items: center; gap: 15px;
-        }
-        .mnav-social { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-        .mnav-social a {
-            color: var(--nav-text); font-size: 1.1rem; width: 36px; height: 36px;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 50%; background-color: rgba(255, 255, 255, 0.12);
-            text-decoration: none;
-        }
-        .mnav-theme {
-            display: flex; align-items: center; gap: 10px; cursor: pointer;
-            padding: 8px 16px; border-radius: 20px; border: none;
-            background-color: rgba(255, 255, 255, 0.12); color: var(--nav-text);
-            font-size: 0.85rem; font-weight: 500; font-family: 'Open Sans', sans-serif;
-        }
+        .top-tabs-wrap + .content-container { padding-top: 28px; }
 
         /* ====== TYPOGRAPHY ====== */
         h1, h2, h3, h4, h5, h6 {
@@ -1234,15 +1093,16 @@
 
         /* ====== BOTTOM FOOTER (blends with body background) ====== */
         .bottom-footer {
-            background-color: transparent;
+            background-color: var(--bg-color, #ffffff);
             color: var(--text-color);
-            padding: 25px 0;
+            padding: 0;
             margin-top: auto;
         }
         .bottom-footer-inner {
-            max-width: none;
-            margin: 0;
-            padding: 0 25px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 25px 40px;
+            background-color: var(--bg-color, #ffffff);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -1339,9 +1199,8 @@
         .bio-text a:hover { color: #2980b9 !important; border-bottom: 1px solid #2980b9; }
 
         /* ====== SOFTWARE LIST LINKS ====== */
-        .software-list { list-style: none; padding-left: 0; margin: 6px 0 12px 0; }
-        .software-list li { margin-bottom: 14px; line-height: 1.7; font-weight: 400; text-align: justify; }
-        .software-list a, .software-list a:link, .software-list a:visited {
+        .software-list { list-style: disc outside; padding-left: 1.6em; }
+                .software-list a, .software-list a:link, .software-list a:visited {
             color: #3498db !important; text-decoration: none; font-weight: 500;
             border-bottom: 1px solid transparent; transition: all 0.2s ease;
         }
@@ -1517,25 +1376,20 @@
 
         /* ====== RESPONSIVE ====== */
         @media (max-width: 1100px) {
-            .floating-sidebar {
-                width: 200px;
-                padding: 25px 10px 25px 15px;
-                margin-left: 10px;
-            }
-            .sidebar-card { padding: 12px 10px 10px; }
-            .sidebar-nav-item { padding: 6px 8px; font-size: 0.8rem; gap: 8px; }
-            .sidebar-nav-item i { font-size: 0.8rem; width: 16px; }
-            .sidebar-card-header .sidebar-logo { font-size: 0.95rem; }
-            .sidebar-social-icon { width: 26px; height: 26px; font-size: 0.75rem; }
-            .content-container { padding: 35px 25px 35px 15px; }
+            .content-container { padding: 35px 25px; }
+            .top-tabs-wrap + .content-container { padding-top: 28px; }
+            .top-tabs-inner { padding: 0 25px; }
+            .bottom-footer-inner { padding: 25px 25px; }
         }
 
         @media (max-width: 900px) {
             .app-layout { flex-direction: column; }
-            .floating-sidebar { display: none; }
-            .mnav-bar { display: flex; }
+            .top-tabs-wrap { padding-top: 14px; }
+            .top-tabs-inner { padding: 0 20px; }
             .main-content { margin-left: 0 !important; }
             .content-container { padding: 30px 20px; }
+            .bottom-footer-inner { padding: 25px 20px; }
+            .top-tabs-wrap + .content-container { padding-top: 24px; }
             .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
             .publications-container { flex-direction: column; gap: 20px; }
             .year-map-sidebar { position: static; max-height: none; width: 100%; flex: 0 0 auto; }
@@ -1554,19 +1408,20 @@
         }
 
         @media (max-width: 480px) {
+            .top-tabs-inner { padding: 0 12px; }
             .content-container { padding: 20px 15px; }
+            .bottom-footer-inner { padding: 25px 15px; }
             .gallery-grid { grid-template-columns: 1fr; }
             .gallery-image-container { height: 220px; min-height: 220px; }
             .gallery-filters { justify-content: center; }
             .filter-btn { min-width: 70px; padding: 8px 12px; font-size: 0.8rem; }
-            .mnav-title { font-size: 0.9rem; }
             .connect-grid { grid-template-columns: 1fr; }
             .connect-social-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
         }
 
         /* Print styles */
         @media print {
-            .floating-sidebar, .mnav-bar, .mnav-backdrop, .mnav-drawer,
+            .top-tabs-wrap,
             .bottom-footer, .gallery-controls, .blog-sidebar, .year-map-sidebar {
                 display: none !important;
             }
@@ -1575,7 +1430,7 @@
         }
     </style>
 </head>
-<body style="background-color: var(--bg-color, #ffffff);">
+<body>
     <div id="root"></div>
 
     <script type="text/babel">
@@ -1592,16 +1447,17 @@
             const [filteredPosts, setFilteredPosts] = useState([]);
             const [activeDropdown, setActiveDropdown] = useState(null);
             const [darkMode, setDarkMode] = useState(() => {
-                const savedTheme = localStorage.getItem('theme-preference');
+                const savedTheme = localStorage.getItem('theme-pref-v2');
                 if (savedTheme === 'dark') { document.body.classList.add('dark-mode'); return true; }
                 if (savedTheme === 'light') { document.body.classList.remove('dark-mode'); return false; }
-                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    document.body.classList.add('dark-mode'); return true;
-                }
                 document.body.classList.remove('dark-mode'); return false;
             });
 
             const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+
+            // ====== TOP TABS (sliding indicator) ======
+            const tabsRef = useRef(null);
+            const [tabIndicator, setTabIndicator] = useState({ left: 0, width: 0, ready: false });
 
             // ====== TEXT SIZE CONTROL ======
             const FONT_MIN = 80, FONT_MAX = 160, FONT_STEP = 10;
@@ -1625,10 +1481,10 @@
                 setDarkMode(newDarkMode);
                 if (newDarkMode) {
                     document.body.classList.add('dark-mode');
-                    localStorage.setItem('theme-preference', 'dark');
+                    localStorage.setItem('theme-pref-v2', 'dark');
                 } else {
                     document.body.classList.remove('dark-mode');
-                    localStorage.setItem('theme-preference', 'light');
+                    localStorage.setItem('theme-pref-v2', 'light');
                 }
             };
 
@@ -2560,7 +2416,7 @@ moderation, and conditional process analyses. <em>SoftwareX</em>, 35, 102895. do
                         {softwareCategories.map(cat => (
                             <div key={cat.title}>
                                 <h3>{cat.title}</h3>
-                                <ul className="software-list">
+                                <ul className="publication-list software-list">
                                     {cat.apps.map(app => (
                                         <li key={app.name}>
                                             {app.use.map((u, i) => (
@@ -2762,105 +2618,85 @@ moderation, and conditional process analyses. <em>SoftwareX</em>, 35, 102895. do
                 { title: 'YouTube', icon: 'fab fa-youtube', href: 'https://www.youtube.com/@mudasirmohammedibrahim1026' }
             ];
 
+            // Position the sliding indicator under the active top tab
+            useEffect(() => {
+                const updateIndicator = () => {
+                    const wrap = tabsRef.current;
+                    if (!wrap) return;
+                    const activeEl = wrap.querySelector('.top-tab.active');
+                    if (activeEl) {
+                        setTabIndicator({ left: activeEl.offsetLeft, width: activeEl.offsetWidth, ready: true });
+                        // keep active tab visible when the bar scrolls horizontally on narrow widths
+                        const left = activeEl.offsetLeft;
+                        const right = left + activeEl.offsetWidth;
+                        if (left < wrap.scrollLeft) wrap.scrollLeft = left - 8;
+                        else if (right > wrap.scrollLeft + wrap.clientWidth) wrap.scrollLeft = right - wrap.clientWidth + 8;
+                    }
+                };
+                updateIndicator();
+                const t = setTimeout(updateIndicator, 250);
+                window.addEventListener('resize', updateIndicator);
+                let ro = null;
+                if (window.ResizeObserver && tabsRef.current) { ro = new ResizeObserver(updateIndicator); ro.observe(tabsRef.current); }
+                if (document.fonts && document.fonts.ready) { document.fonts.ready.then(updateIndicator); }
+                return () => { clearTimeout(t); window.removeEventListener('resize', updateIndicator); if (ro) ro.disconnect(); };
+            }, [activeSection, fontScale]);
+
             // ====== MAIN RENDER ======
             return (
                 <>
                 <div className="app-layout">
-                    {/* ====== FLOATING SIDEBAR ====== */}
-                    <div className="floating-sidebar">
-                        <div className="sidebar-card">
-                            <div className="sidebar-card-header">
-                                <a href="#" className="sidebar-logo" onClick={(e) => { e.preventDefault(); handleSectionChange('about'); }}>
-                                    Mudasir M. Ibrahim
-                                </a>
-                                <div className="sidebar-subtitle">RN, Health Researcher</div>
-                            </div>
-
-                            <nav className="sidebar-nav">
-                                <a className={`sidebar-nav-item ${activeSection === 'about' ? 'active' : ''}`} onClick={() => handleSectionChange('about')}>
-                                    <i className="fas fa-user"></i> About Me
-                                </a>
-                                <a className={`sidebar-nav-item ${activeSection === 'publications' ? 'active' : ''}`} onClick={() => handleSectionChange('publications')}>
-                                    <i className="fas fa-book"></i> Publications
-                                </a>
-                                <a className={`sidebar-nav-item ${activeSection === 'shiny' ? 'active' : ''}`} onClick={() => handleSectionChange('shiny')}>
-                                    <i className="fas fa-laptop-code"></i> Software
-                                </a>
-                                <a className={`sidebar-nav-item ${activeSection === 'blog' ? 'active' : ''}`} onClick={() => handleSectionChange('blog')}>
-                                    <i className="fas fa-pen-nib"></i> Blog
-                                </a>
-                                <a className={`sidebar-nav-item ${activeSection === 'teaching' ? 'active' : ''}`} onClick={() => handleSectionChange('teaching')}>
-                                    <i className="fas fa-chalkboard-teacher"></i> Teaching
-                                </a>
-                                <a className={`sidebar-nav-item ${activeSection === 'gallery' ? 'active' : ''}`} onClick={() => handleSectionChange('gallery')}>
-                                    <i className="fas fa-images"></i> Gallery
-                                </a>
-                                <a className={`sidebar-nav-item ${activeSection === 'connect' ? 'active' : ''}`} onClick={() => handleSectionChange('connect')}>
-                                    <i className="fas fa-share-alt"></i> Connect
-                                </a>
-                            </nav>
-
-                            <div className="sidebar-card-footer">
-                                <div className="sidebar-social-icons">
-                                    <a href="https://orcid.org/0000-0002-9049-8222" target="_blank" rel="noopener noreferrer" className="sidebar-social-icon" title="ORCID"><i className="fab fa-orcid"></i></a>
-                                    <a href="https://scholar.google.com/citations?user=xEFzAvgAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" className="sidebar-social-icon" title="Google Scholar"><i className="fas fa-graduation-cap"></i></a>
-                                    <a href="https://www.webofscience.com/wos/author/record/HPC-2085-2023" target="_blank" rel="noopener noreferrer" className="sidebar-social-icon" title="Web of Science"><i className="fas fa-book-open"></i></a>
-                                    <a href="https://github.com/shinyhealthtools" target="_blank" rel="noopener noreferrer" className="sidebar-social-icon" title="GitHub"><i className="fab fa-github"></i></a>
-                                    <a href="https://linkedin.com/in/mudasir-mohammed-ibrahim-16b5141b0" target="_blank" rel="noopener noreferrer" className="sidebar-social-icon" title="LinkedIn"><i className="fab fa-linkedin"></i></a>
-                                    <a href="https://www.youtube.com/@mudasirmohammedibrahim1026" target="_blank" rel="noopener noreferrer" className="sidebar-social-icon" title="YouTube"><i className="fab fa-youtube"></i></a>
-                                </div>
-                                {renderFontControls()}
-                                <button className="sidebar-theme-toggle" onClick={toggleTheme}>
-                                    <i className={darkMode ? "fas fa-sun" : "fas fa-moon"}></i>
-                                    {darkMode ? 'Light Mode' : 'Dark Mode'}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* ====== MOBILE DRAWER (opens from hamburger) ====== */}
-                    {isMobileSidebarOpen && (
-                        <>
-                            <div className="mnav-backdrop" onClick={() => setIsMobileSidebarOpen(false)}></div>
-                            <aside className="mnav-drawer" role="dialog" aria-modal="true" aria-label="Site navigation">
-                                <div className="mnav-drawer-head">
-                                    <div className="mnav-drawer-name">Mudasir M. Ibrahim</div>
-                                    <div className="mnav-drawer-sub">RN, Health Researcher</div>
-                                    <button type="button" className="mnav-close" onClick={() => setIsMobileSidebarOpen(false)} aria-label="Close menu">
-                                        <i className="fas fa-times"></i>
-                                    </button>
-                                </div>
-                                <nav className="mnav-list">
+                    {/* ====== MAIN CONTENT ====== */}
+                    <div className="main-content">
+                        {/* ====== TOP TABS NAVIGATION (in the body, desktop) ====== */}
+                        <div className="top-tabs-wrap">
+                            <div className="top-tabs-inner">
+                                <div className="top-tabs-shell">
+                                <nav className="top-tabs" ref={tabsRef} aria-label="Main navigation">
+                                    <span
+                                        className="top-tabs-indicator"
+                                        aria-hidden="true"
+                                        style={{
+                                            width: tabIndicator.width + 'px',
+                                            transform: `translateX(${tabIndicator.left}px)`,
+                                            opacity: tabIndicator.ready ? 1 : 0
+                                        }}
+                                    ></span>
                                     {mobileNavItems.map(item => (
-                                        <button type="button" key={item.id} className={`mnav-link ${activeSection === item.id ? 'active' : ''}`} onClick={() => handleSectionChange(item.id)}>
-                                            <i className={`fas ${item.icon}`}></i> {item.label}
+                                        <button
+                                            type="button"
+                                            key={item.id}
+                                            className={`top-tab ${activeSection === item.id ? 'active' : ''}`}
+                                            onClick={() => handleSectionChange(item.id)}
+                                            aria-current={activeSection === item.id ? 'page' : undefined}
+                                            aria-label={item.label}
+                                            title={item.label}
+                                        >
+                                            <i className={`fas ${item.icon}`}></i>
+                                            <span>{item.label}</span>
                                         </button>
                                     ))}
                                 </nav>
-                                <div className="mnav-foot">
-                                    <div className="mnav-social">
-                                        {mobileSocialLinks.map(l => (
-                                            <a key={l.title} href={l.href} target="_blank" rel="noopener noreferrer" title={l.title}><i className={l.icon}></i></a>
-                                        ))}
-                                    </div>
-                                    {renderFontControls()}
-                                    <button type="button" className="mnav-theme" onClick={toggleTheme}>
-                                        <i className={darkMode ? "fas fa-sun" : "fas fa-moon"}></i>
-                                        {darkMode ? 'Light Mode' : 'Dark Mode'}
+                                    <span className="top-tabs-divider" aria-hidden="true"></span>
+                                    <button
+                                        type="button"
+                                        className="top-tab-theme"
+                                        onClick={toggleTheme}
+                                        title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+                                        aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+                                    >
+                                        {darkMode ? (
+                                            <i className="fas fa-sun"></i>
+                                        ) : (
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                                <path d="M17.5 14.2A8 8 0 1 1 9.8 3.5a6.6 6.6 0 0 0 7.7 10.7z" />
+                                                <path d="M19 2.2l.8 2.1 2.1.8-2.1.8-.8 2.1-.8-2.1-2.1-.8 2.1-.8z" />
+                                                <path d="M21.6 10.2l.45 1.15 1.15.45-1.15.45-.45 1.15-.45-1.15-1.15-.45 1.15-.45z" />
+                                            </svg>
+                                        )}
                                     </button>
-                                </div>
-                            </aside>
-                        </>
-                    )}
-
-                    {/* ====== MAIN CONTENT ====== */}
-                    <div className="main-content">
-                        {/* Mobile bar with hamburger */}
-                        <div className="mnav-bar">
-                            <a href="#" className="mnav-title" onClick={(e) => { e.preventDefault(); handleSectionChange('about'); }}>Mudasir M. Ibrahim</a>
-                            <button type="button" className="mnav-toggle" onClick={() => setIsMobileSidebarOpen(true)} aria-label="Open menu" aria-expanded={isMobileSidebarOpen}>
-                                <i className="fas fa-bars"></i>
-                            </button>
+                            </div>
+                            </div>
                         </div>
 
                         <div className="content-container" style={{ zoom: fontScale / 100 }}>
@@ -2899,7 +2735,7 @@ moderation, and conditional process analyses. <em>SoftwareX</em>, 35, 102895. do
                                         printWindow.document.write(`<!DOCTYPE html><html><head><title>Mudasir Mohammed Ibrahim - Official Website</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">${stylesHTML}<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"><style>
                                             * { margin: 0; padding: 0; box-sizing: border-box; }
                                             body { display: block !important; min-height: 0 !important; font-family: 'Open Sans', sans-serif; padding: 40px; max-width: 1000px; margin: 0 auto; background-color: ${isDarkMode ? '#121212' : '#ffffff'} !important; color: ${isDarkMode ? '#f0f0f0' : '#000000'} !important; line-height: 1.6; }
-                                            .floating-sidebar, .mnav-bar, .mnav-backdrop, .mnav-drawer, .bottom-footer, .gallery-controls, .gallery-overlay, .modal-nav, .modal-close, .blog-sidebar, .year-map-sidebar, .blog-load-more, .gallery-pagination, .filter-btn, .search-suggestions, button:not(.keep-in-print) { display: none !important; }
+                                            .top-tabs-wrap, .bottom-footer, .gallery-controls, .gallery-overlay, .modal-nav, .modal-close, .blog-sidebar, .year-map-sidebar, .blog-load-more, .gallery-pagination, .filter-btn, .search-suggestions, button:not(.keep-in-print) { display: none !important; }
                                             .print-profile-section { text-align: center; margin-bottom: 50px; padding-bottom: 30px; border-bottom: 2px solid ${isDarkMode ? '#444' : '#ddd'}; page-break-after: avoid; break-inside: avoid; }
                                             .print-profile-image-container { position: relative; width: 200px; height: 240px; margin: 0 auto 20px; border-radius: 8px; overflow: hidden; border: 4px solid ${isDarkMode ? '#555' : '#ddd'}; background-color: ${isDarkMode ? '#2a2a2a' : '#f5f5f5'}; }
                                             .print-profile-image { width: 100%; height: 100%; object-fit: cover; }
@@ -2926,7 +2762,7 @@ moderation, and conditional process analyses. <em>SoftwareX</em>, 35, 102895. do
                                         }
                                         if (mainContent) {
                                             const contentClone = mainContent.cloneNode(true);
-                                            const removeSelectors = ['.gallery-controls', '.blog-sidebar', '.year-map-sidebar', '.blog-load-more', '.gallery-pagination', '.filter-btn', '.search-suggestions', '.modal', '.bottom-footer', 'button', '.mnav-toggle'];
+                                            const removeSelectors = ['.gallery-controls', '.blog-sidebar', '.year-map-sidebar', '.blog-load-more', '.gallery-pagination', '.filter-btn', '.search-suggestions', '.modal', '.bottom-footer', 'button'];
                                             removeSelectors.forEach(selector => { const elements = contentClone.querySelectorAll(selector); elements.forEach(el => el.remove()); });
                                             printWindow.document.write(contentClone.innerHTML);
                                         }
