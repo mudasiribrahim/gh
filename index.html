@@ -950,6 +950,14 @@
             align-items: center; justify-content: center; flex-shrink: 0;
         }
         .contact-details { flex: 1; }
+        .contact-info .contact-item { align-items: flex-start; gap: 12px; text-align: left; }
+        .contact-info .contact-item .contact-icon {
+            width: 34px; height: 34px; margin: 0; font-size: 1rem; flex: 0 0 34px;
+        }
+        .contact-info .contact-item > span {
+            flex: 1; min-width: 0; line-height: 1.45; overflow-wrap: anywhere;
+            padding-top: 6px; font-size: 0.95rem;
+        }
         .contact-text { color: var(--text-color); font-size: 0.95rem; line-height: 1.5; margin-bottom: 12px; }
         .contact-text strong { color: var(--header-color); }
         .contact-link {
@@ -1456,6 +1464,33 @@
             const [blogError, setBlogError] = useState(false);
             const [visiblePosts, setVisiblePosts] = useState(50);
             const [showContactForm, setShowContactForm] = useState(false);
+            const [contactStatus, setContactStatus] = useState('idle'); // 'idle' | 'sending' | 'success' | 'error'
+            // Hide the success notice after 10 seconds; a new submission restarts the cycle
+            useEffect(() => {
+                if (contactStatus !== 'success') return;
+                const timer = setTimeout(() => setContactStatus('idle'), 10000);
+                return () => clearTimeout(timer);
+            }, [contactStatus]);
+            const handleContactSubmit = async (e) => {
+                e.preventDefault();
+                const formEl = e.currentTarget;
+                setContactStatus('sending');
+                try {
+                    const response = await fetch(formEl.action, {
+                        method: 'POST',
+                        body: new FormData(formEl),
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    if (response.ok) {
+                        formEl.reset();
+                        setContactStatus('success');
+                    } else {
+                        setContactStatus('error');
+                    }
+                } catch (err) {
+                    setContactStatus('error');
+                }
+            };
             const [selectedMonth, setSelectedMonth] = useState(null);
             const [filteredPosts, setFilteredPosts] = useState([]);
             const [activeDropdown, setActiveDropdown] = useState(null);
@@ -1898,7 +1933,7 @@
                                 <button onClick={() => setShowContactForm(false)} style={{ background: 'none', border: 'none', color: '#666', fontSize: '24px', cursor: 'pointer', padding: '5px 10px' }} title="Close form">×</button>
                             </div>
                             <p style={{ marginBottom: '20px' }}>Please fill out the form below and I'll get back to you soon.</p>
-                            <form id="contactForm" action="https://formspree.io/f/xanrpwae" method="POST">
+                            <form id="contactForm" action="https://formspree.io/f/xanrpwae" method="POST" onSubmit={handleContactSubmit}>
                                 <input type="hidden" name="_gotcha" style={{ display: 'none' }} />
                                 <input type="hidden" name="_subject" value="New Message from Website Contact Form" />
                                 <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '15px' }}>
@@ -1919,10 +1954,21 @@
                                     <label htmlFor="message" style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: 'var(--text-color)', fontSize: '1rem' }}>Message *</label>
                                     <textarea id="message" name="message" rows="6" required style={{ width: '100%', padding: '12px', border: '1px solid var(--border-color)', borderRadius: '5px', backgroundColor: 'var(--card-bg)', color: 'var(--text-color)', fontSize: '16px', minHeight: '150px' }} placeholder="Please describe your reason for contacting..."></textarea>
                                 </div>
-                                <div id="formspree-message" style={{ display: 'none', padding: '1rem', margin: '1rem 0', borderRadius: '10px' }}></div>
-                                <button type="submit" style={{ width: '100%', padding: '14px', backgroundColor: '#3498db', color: 'white', border: 'none', borderRadius: '5px', fontSize: '16px', fontWeight: 'bold', cursor: 'pointer' }}>
+                                {contactStatus === 'success' && (
+                                    <div id="formspree-message" style={{ padding: '1rem', margin: '1rem 0', borderRadius: '10px', backgroundColor: '#d4edda', color: '#155724', border: '1px solid #c3e6cb' }}>
+                                        <i className="fas fa-check-circle" style={{ marginRight: '8px' }}></i>
+                                        Your form has been submitted successfully.
+                                    </div>
+                                )}
+                                {contactStatus === 'error' && (
+                                    <div id="formspree-message" style={{ padding: '1rem', margin: '1rem 0', borderRadius: '10px', backgroundColor: '#f8d7da', color: '#721c24', border: '1px solid #f5c6cb' }}>
+                                        <i className="fas fa-exclamation-circle" style={{ marginRight: '8px' }}></i>
+                                        Something went wrong while submitting your form. Please try again.
+                                    </div>
+                                )}
+                                <button type="submit" disabled={contactStatus === 'sending'} style={{ width: '100%', padding: '14px', backgroundColor: '#3498db', color: 'white', border: 'none', borderRadius: '5px', fontSize: '16px', fontWeight: 'bold', cursor: contactStatus === 'sending' ? 'not-allowed' : 'pointer', opacity: contactStatus === 'sending' ? 0.7 : 1 }}>
                                     <i className="fas fa-paper-plane" style={{ marginRight: '10px' }}></i>
-                                    Send Message
+                                    {contactStatus === 'sending' ? 'Sending...' : 'Send Message'}
                                 </button>
                             </form>
                             <p style={{ marginTop: '15px', fontSize: '14px', color: 'var(--position-color)', textAlign: 'center' }}>I'll typically respond to your message within 24–48 hours.</p>
@@ -2213,7 +2259,7 @@ moderation, and conditional process analyses. <em>SoftwareX</em>, 35, 102895. do
                                 <div className="contact-icon"><i className="fas fa-envelope-open-text"></i></div>
                                 <div className="contact-details">
                                     <p className="contact-text">For lecturing opportunities in nursing, including <strong>research methodology or biostatistics</strong>, please contact me via the link below.</p>
-                                    <a href="#" onClick={(e) => { e.preventDefault(); handleSectionChange('connect'); setTimeout(() => { const formElement = document.getElementById('connect-page'); if (formElement) formElement.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100); }} className="contact-link"><i className="fas fa-external-link-alt"></i> Open Contact Form</a>
+                                    <a href="#" onClick={(e) => { e.preventDefault(); setShowContactForm(true); setActiveSection('about'); setTimeout(() => { const formElement = document.getElementById('contact-form'); if (formElement) formElement.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100); }} className="contact-link"><i className="fas fa-external-link-alt"></i> Open Contact Form</a>
                                 </div>
                             </div>
                         </div>
