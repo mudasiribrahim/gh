@@ -215,6 +215,7 @@
             .top-tab { flex: 1 1 0; min-width: 0; padding: 8px 0; gap: 0; }
             .top-tab.active span { display: none; }
             .top-tab-theme { width: 32px; }
+            .top-tabs-shell .top-tab-font { width: 22px; }
         }
 
         .top-tabs-divider {
@@ -245,6 +246,18 @@
         .top-tab-theme i { transition: transform 0.4s ease; }
         .top-tab-theme:hover i { transform: rotate(-15deg) scale(1.1); }
         .top-tab-theme:focus-visible { outline: 2px solid var(--nav-hover); outline-offset: 1px; }
+        .top-tab-font {
+            position: relative; z-index: 1; flex: 0 0 auto;
+            display: flex; align-items: center; justify-content: center;
+            width: 28px; background: none; border: none; border-radius: 10px;
+            color: var(--position-color); font-family: 'Open Sans', sans-serif;
+            font-size: 0.78rem; font-weight: 700; cursor: pointer;
+            transition: color 0.25s ease, background-color 0.25s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .top-tab-font:hover:not(:disabled) { color: var(--nav-hover); background-color: var(--light-bg); }
+        .top-tab-font:disabled { opacity: 0.35; cursor: not-allowed; }
+        .top-tab-font:focus-visible { outline: 2px solid var(--nav-hover); outline-offset: 1px; }
 
         /* ====== MAIN CONTENT ====== */
         .main-content {
@@ -1386,7 +1399,7 @@
             .app-layout { flex-direction: column; }
             .top-tabs-wrap { padding-top: 14px; }
             .top-tabs-inner { padding: 0 20px; }
-            .main-content { margin-left: 0 !important; }
+            .main-content { margin-left: 0 !important; flex: 0 0 auto; }
             .content-container { padding: 30px 20px; }
             .bottom-footer-inner { padding: 25px 20px; }
             .top-tabs-wrap + .content-container { padding-top: 24px; }
@@ -2678,6 +2691,8 @@ moderation, and conditional process analyses. <em>SoftwareX</em>, 35, 102895. do
                                     ))}
                                 </nav>
                                     <span className="top-tabs-divider" aria-hidden="true"></span>
+                                    <button type="button" className="top-tab-font" onClick={() => changeFontScale(-FONT_STEP)} disabled={fontScale <= FONT_MIN} title="Decrease text size" aria-label="Decrease text size">A&minus;</button>
+                                    <button type="button" className="top-tab-font" onClick={() => changeFontScale(FONT_STEP)} disabled={fontScale >= FONT_MAX} title="Increase text size" aria-label="Increase text size">A+</button>
                                     <button
                                         type="button"
                                         className="top-tab-theme"
@@ -2699,7 +2714,7 @@ moderation, and conditional process analyses. <em>SoftwareX</em>, 35, 102895. do
                             </div>
                         </div>
 
-                        <div className="content-container" style={{ zoom: fontScale / 100 }}>
+                        <div className="content-container" style={{ zoom: (fontScale / 100) * 0.95 }}>
                             <div className="position"></div>
                             {activeSection === 'about' && renderAbout()}
                             {activeSection === 'publications' && <PublicationsComponent />}
