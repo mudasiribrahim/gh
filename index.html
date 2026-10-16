@@ -121,7 +121,7 @@
             transition: background-color 0.3s ease;
         }
         .top-tabs-inner {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 0 40px;
         }
@@ -199,19 +199,19 @@
         /* ====== TAB BAR AUTOFIT (container queries: adapts to the bar's own width) ====== */
         .top-tabs-shell { container-type: inline-size; container-name: tabbar; }
         /* Tier 2 - medium: all labels, tighter spacing */
-        @container tabbar (max-width: 699px) {
+        @container tabbar (max-width: 839px) {
             .top-tab { padding: 8px 6px; font-size: 0.74rem; gap: 4px; }
             .top-tab i { font-size: 0.72rem; }
         }
         /* Tier 3 - compact: icons only, the active tab shows its label */
-        @container tabbar (max-width: 599px) {
+        @container tabbar (max-width: 719px) {
             .top-tab { flex: 0 1 auto; padding: 8px 9px; }
             .top-tab span { display: none; }
             .top-tab.active span { display: inline; }
             .top-tab i { font-size: 0.85rem; }
         }
         /* Tier 4 - tiny: icons only, equal widths so everything always fits */
-        @container tabbar (max-width: 359px) {
+        @container tabbar (max-width: 419px) {
             .top-tab { flex: 1 1 0; min-width: 0; padding: 8px 0; gap: 0; }
             .top-tab.active span { display: none; }
             .top-tab-theme { width: 32px; }
@@ -261,9 +261,9 @@
 
         /* ====== MAIN CONTENT ====== */
         .main-content {
-            flex: 0 1 900px;
+            flex: 0 1 1000px;
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             background-color: var(--bg-color, #ffffff);
             display: flex;
@@ -274,7 +274,7 @@
         }
 
         .content-container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 40px 40px;
             flex: 1;
@@ -1120,7 +1120,7 @@
             margin-top: auto;
         }
         .bottom-footer-inner {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 25px 40px;
             background-color: var(--bg-color, #ffffff);
@@ -1449,6 +1449,71 @@
             .app-layout { flex-direction: column; }
             .content-container { max-width: 100% !important; padding: 20px !important; }
         }
+
+        /* ====== AHSBQ-NS TAB (matches site: flat scholarly style, blue accent) ====== */
+        .ahs-wrap { width: 100%; }
+        .ahs-wrap h1 { margin-bottom: 0.3rem; }
+        .ahs-facts { color: var(--position-color); font-size: 0.95rem; margin-bottom: 1.2em; }
+        .ahs-wrap a { color: #3498db; text-decoration: none; font-weight: 500; border-bottom: 1px solid transparent; transition: all 0.2s ease; }
+        .ahs-wrap a:hover { color: #2980b9; border-bottom-color: #2980b9; }
+        body.dark-mode .ahs-wrap a { color: #4dabf7; }
+        .ahs-subscales { list-style: disc outside; padding-left: 1.6em; margin-bottom: 1.2em; }
+        .ahs-subscales li { margin-bottom: 0.6em; line-height: 1.6; font-weight: 500; }
+        .ahs-subscales strong { color: var(--header-color); }
+        .ahs-wrap a.ahs-btn { border: 2px solid #3498db; }
+        .ahs-wrap a.ahs-btn:hover { border: 2px solid #2980b9; color: #fff; }
+        .ahs-btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 12px 26px; border-radius: 5px; font-size: 0.95rem; font-weight: 700; cursor: pointer; border: 2px solid #3498db; background: #3498db; color: #fff !important; text-decoration: none; font-family: 'Open Sans', sans-serif; transition: all 0.2s ease; }
+        .ahs-btn:hover { background: #2980b9; border-color: #2980b9; }
+        .ahs-btn.ghost { background: transparent; color: #3498db !important; }
+        .ahs-btn.ghost:hover { background: rgba(52, 152, 219, 0.12); color: #2980b9 !important; }
+        body.dark-mode .ahs-btn.ghost { color: #4dabf7 !important; border-color: #4dabf7; }
+        .ahs-scale { border: 1px solid var(--border-color); border-radius: 6px; padding: 16px 18px; margin-bottom: 26px; background: var(--card-bg); }
+        .ahs-scale-label { font-size: 0.8rem; font-weight: 700; color: var(--position-color); margin-bottom: 10px; }
+        .ahs-scale-track { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
+        .ahs-scale-pt { text-align: center; border: 1px solid var(--border-color); border-radius: 5px; padding: 6px 2px; }
+        .ahs-scale-pt b { display: block; font-size: 1rem; color: var(--header-color); }
+        .ahs-scale-pt small { display: block; font-size: 0.6rem; text-transform: uppercase; font-weight: 600; color: var(--position-color); line-height: 1.2; min-height: 14px; }
+        .ahs-endpoints { display: flex; justify-content: space-between; margin-top: 10px; font-size: 0.82rem; color: var(--position-color); gap: 10px; }
+        .ahs-group-desc { color: var(--position-color); font-style: italic; font-size: 0.92rem; margin: -0.3rem 0 0.4rem; }
+        .ahs-qlist { border-top: 1px solid var(--border-color); margin-bottom: 8px; }
+        .ahs-q { display: flex; align-items: center; gap: 16px; padding: 14px 6px; border-bottom: 1px solid var(--border-color); }
+        .ahs-q.err { background: rgba(231, 76, 60, 0.08); outline: 1px solid #e74c3c; outline-offset: -1px; }
+        .ahs-qnum { min-width: 26px; font-weight: 700; color: var(--position-color); text-align: center; }
+        .ahs-qtext { flex: 1; font-size: 0.95rem; line-height: 1.55; font-weight: 500; }
+        .ahs-qerr { color: #e74c3c; font-size: 0.8rem; font-weight: 600; margin-top: 4px; }
+        .ahs-rate { display: flex; gap: 4px; flex-shrink: 0; }
+        .ahs-rate input { display: none; }
+        .ahs-rate label { width: 34px; height: 34px; border: 1px solid var(--border-color); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.85rem; cursor: pointer; user-select: none; color: var(--text-color); background: var(--card-bg); transition: all .15s; }
+        .ahs-rate label:hover { border-color: #3498db; color: #3498db; }
+        .ahs-rate input:checked + label { background: #3498db; border-color: #3498db; color: #fff; }
+        .ahs-actions { display: flex; gap: 14px; flex-wrap: wrap; margin: 26px 0 10px; }
+        .ahs-alert { margin-top: 18px; color: #e74c3c; font-weight: 600; font-size: 0.92rem; }
+        .ahs-total-line { font-size: 1.05rem; margin-bottom: 14px; }
+        .ahs-total-line strong { color: var(--header-color); font-size: 1.4rem; }
+        .ahs-res { border-top: 1px solid var(--border-color); }
+        .ahs-res-row { display: grid; grid-template-columns: 170px 90px 1fr; align-items: center; gap: 16px; padding: 14px 6px; border-bottom: 1px solid var(--border-color); }
+        .ahs-res-row.top { background: rgba(52, 152, 219, 0.08); }
+        .ahs-res-name { font-weight: 600; color: var(--header-color); }
+        .ahs-res-name small { display: block; font-weight: 500; font-size: 0.78rem; color: var(--position-color); }
+        .ahs-res-mean { font-size: 1.3rem; font-weight: 700; color: var(--header-color); }
+        .ahs-bar { height: 8px; background: var(--skill-bg); border-radius: 4px; overflow: hidden; }
+        .ahs-bar > div { height: 100%; background: #3498db; border-radius: 4px; transition: width 1s ease; }
+        .ahs-trait { border-left: 4px solid #3498db; padding: 4px 0 4px 16px; margin-bottom: 1.2em; }
+        .ahs-trait-name { font-size: 1.15rem; font-weight: 700; color: #3498db; margin-bottom: 0.5em; }
+        body.dark-mode .ahs-trait, body.dark-mode .ahs-trait-name { border-left-color: #4dabf7; }
+        body.dark-mode .ahs-trait-name { color: #4dabf7; }
+        .ahs-top-note { font-size: 0.78rem; font-weight: 700; color: #3498db; margin-left: 6px; }
+        @media (max-width: 820px) {
+            .ahs-scale-track { grid-template-columns: repeat(4, 1fr); }
+            .ahs-q { flex-direction: column; align-items: stretch; gap: 10px; }
+            .ahs-qnum { text-align: left; }
+            .ahs-rate { justify-content: space-between; }
+            .ahs-rate > div { flex: 1; }
+            .ahs-rate label { width: 100%; }
+            .ahs-res-row { grid-template-columns: 1fr 70px; }
+            .ahs-res-row .ahs-bar { grid-column: 1 / -1; }
+            .ahs-btn { width: 100%; }
+        }
     </style>
 </head>
 <body>
@@ -1457,8 +1522,221 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
+        // ====== AHSBQ-NS COMPONENT (defined outside AcademicPortfolio so answers are kept while using the page) ======
+        const AHS_ITEMS = [
+            { id: 'item1',  scale: 1, text: "When I ask my nurse educator for help understanding the material in this class, I prefer that the nurse educator help me understand the general ideas rather than simply tell me the answer." },
+            { id: 'item2',  scale: 1, text: "When I ask a student for help understanding the material in this class, I prefer that the student help me understand the general ideas rather than simply tell me the answer." },
+            { id: 'item3',  scale: 1, text: "When I ask a student for help with something I don't understand, I ask the student to explain it to me rather than just give me the answer." },
+            { id: 'item4',  scale: 2, text: "When I ask my nurse educator for help on something I don't understand, I prefer that nurse educator do it for me." },
+            { id: 'item5',  scale: 2, text: "When I ask my nurse educator for help on something I don't understand, I prefer the nurse educator to just give me the answer rather than explain it." },
+            { id: 'item6',  scale: 2, text: "When I ask the nurse educator for help with my work, I prefer to be given the answer rather than an explanation of how to do the work myself." },
+            { id: 'item7',  scale: 2, text: "When I ask my nurse educator for help, I want the nurse educator to do the work for me rather than help me be able to complete the work myself." },
+            { id: 'item8',  scale: 2, text: "When I ask a student for help on something I don't understand, I prefer that the student just give me the answer rather than explain it." },
+            { id: 'item9',  scale: 2, text: "When I ask a student for help with my work, I prefer that the student do the work for me rather than explain to me how to do it." },
+            { id: 'item10', scale: 2, text: "When I ask another student for help on something I don't understand, I ask that student to do it for me." },
+            { id: 'item11', scale: 2, text: "When I ask a student for help in this class, I want the work done for me rather than be helped to complete the work myself." },
+            { id: 'item12', scale: 2, text: "When I ask a student for help with my work, I prefer to be given the answer rather than an explanation of how to do the work myself." },
+            { id: 'item13', scale: 3, text: "I don't ask for help in this class even when the work is too hard to solve on my own." },
+            { id: 'item14', scale: 3, text: "If I need help to solve a problem, I prefer to skip it rather than ask for help." },
+            { id: 'item15', scale: 3, text: "I don't ask for help in this class even if I don't understand the lesson." },
+            { id: 'item16', scale: 3, text: "If I didn't understand something in this class, I would guess rather than ask someone for help." },
+            { id: 'item17', scale: 3, text: "I would rather do worse on an assignment I couldn't finish than ask for help in this class." },
+            { id: 'item18', scale: 3, text: "Even if the work was too hard to do on my own, I wouldn't ask for help in this class." },
+            { id: 'item19', scale: 3, text: "I would put down any answer rather than ask for help in this class." }
+        ];
+        const AHS_GROUPS = [
+            { scale: 1, color: 'teal',  icon: 'fa-lightbulb', title: 'Subscale 1: Instrumental Help-Seeking', desc: 'Items 1–3 · Prefers conceptual understanding over direct answers' },
+            { scale: 2, color: 'amber', icon: 'fa-bolt',      title: 'Subscale 2: Executive Help-Seeking',    desc: 'Items 4–12 · Prefers direct answers and solutions' },
+            { scale: 3, color: 'rose',  icon: 'fa-eye-slash', title: 'Subscale 3: Avoidance Help-Seeking',    desc: 'Items 13–19 · Reluctance to seek assistance' }
+        ];
+
+        const AHS_TRAITS = {
+            1: { name: 'Instrumental Help-Seeking', text: 'You tend to seek help in order to understand. When you ask a nurse educator or a fellow student, you prefer explanations and guidance that help you grasp the general ideas and complete the work yourself, rather than being given the answer. This is generally regarded as an adaptive style, because it supports deeper learning and growing independence.' },
+            2: { name: 'Executive Help-Seeking', text: 'You tend to seek help in order to get the work done. When you ask a nurse educator or a fellow student, you prefer direct answers or to have the task done for you rather than an explanation. This can save time in the short term, but it may limit how well you understand the material and build your own skills. Asking for explanations alongside answers can help you learn more from each request.' },
+            3: { name: 'Avoidance Help-Seeking', text: 'You tend to hold back from asking for help, even when the work is difficult or you do not understand it. You may skip problems or guess instead of asking. This can leave gaps in understanding unaddressed. Starting with small, low-pressure requests, such as a quick question to a trusted peer or educator, can make it easier to seek support when you need it.' }
+        };
+
+        const AHSBQComponent = () => {
+            const [answers, setAnswers] = useState({});
+            const [results, setResults] = useState(null);
+            const [missing, setMissing] = useState([]);
+            const [barsOn, setBarsOn] = useState(false);
+            const rootRef = useRef(null);
+            const resultsRef = useRef(null);
+
+            const setAnswer = (id, v) => {
+                setAnswers(prev => ({ ...prev, [id]: v }));
+                setMissing(prev => prev.filter(m => m !== id));
+            };
+
+            const generate = () => {
+                const miss = AHS_ITEMS.filter(i => !answers[i.id]).map(i => i.id);
+                setMissing(miss);
+                if (miss.length) {
+                    setResults(null);
+                    setTimeout(() => {
+                        const el = document.getElementById('ahs-q-' + miss[0]);
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 50);
+                    return;
+                }
+                const totals = { 1: 0, 2: 0, 3: 0 };
+                const counts = { 1: 0, 2: 0, 3: 0 };
+                let grand = 0;
+                AHS_ITEMS.forEach(i => { totals[i.scale] += answers[i.id]; counts[i.scale]++; grand += answers[i.id]; });
+                const means = { 1: totals[1] / counts[1], 2: totals[2] / counts[2], 3: totals[3] / counts[3] };
+                const maxMean = Math.max(means[1], means[2], means[3]);
+                const highestList = [1, 2, 3].filter(k => Math.abs(means[k] - maxMean) < 1e-9);
+                setBarsOn(false);
+                setResults({ grand, means, highestList, counts });
+                setTimeout(() => setBarsOn(true), 150);
+                setTimeout(() => { if (resultsRef.current) resultsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 120);
+            };
+
+            const reset = () => {
+                setAnswers({});
+                setResults(null);
+                setMissing([]);
+                setBarsOn(false);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            const resultCards = [
+                { scale: 1, color: 'teal',  title: 'Instrumental' },
+                { scale: 2, color: 'amber', title: 'Executive' },
+                { scale: 3, color: 'rose',  title: 'Avoidance' }
+            ];
+
+            return (
+                <div className="section ahs-wrap" ref={rootRef}>
+                    <h1>AHSBQ-NS</h1>
+                    <div className="position" style={{ marginBottom: '0.8rem' }}>Academic Help-Seeking Behavior Questionnaire for Nursing Students</div>
+                    <p>A psychometrically validated instrument assessing how nursing students seek academic support, across three distinct behavioral dimensions.</p>
+                    <p className="ahs-facts"><i className="fas fa-list-ol"></i> 19 items &nbsp;·&nbsp; <i className="fas fa-layer-group"></i> 3 subscales &nbsp;·&nbsp; <i className="fas fa-sliders-h"></i> 8-point Likert scale</p>
+
+                    <h2>Why Help-Seeking Behavior Matters</h2>
+                    <p>Academic help-seeking is a critical skill that directly influences learning outcomes, professional competence, and overall academic success in nursing education. It involves recognizing when support is needed, knowing where and how to obtain assistance, and using available resources effectively. For nursing students, who must balance theoretical learning with clinical practice, developing effective help-seeking behaviors is essential for mastering complex concepts and ensuring patient safety in practice.</p>
+                    <p>Despite its recognized importance, tools specifically designed to assess academic help-seeking behaviors in nursing education are scarce. Many existing measures were created for general education or other disciplines and may not fully capture the unique challenges nursing students face, such as time constraints, high-stakes clinical environments, and the need for professional skill development alongside academic knowledge.</p>
+                    <p>The <strong>Academic Help-Seeking Behavior Questionnaire for Nursing Students (AHSBQ-NS)</strong> was created to address this gap. This 19-item questionnaire provides a context-specific, psychometrically validated instrument to assess how nursing students seek academic support.</p>
+                    <p>The AHSBQ-NS was adapted from the <em>Computer Science Help-Seeking Scales (CSHS)</em> developed by <a href="https://doi.org/10.1177/0013164403258447" target="_blank" rel="noopener noreferrer">Pajares et al. (2004)</a> and refined for nursing education using structural equation modeling, ensuring reliability and validity in this specific context.</p>
+                    <p>This questionnaire is <strong>freely available for self-assessment</strong> and can be adapted for other educational or research contexts without needing permission from the authors, provided proper acknowledgment is given. Responses are confidential, and there are <strong>no right or wrong answers</strong>, encouraging honest self-reflection.</p>
+                    <p>
+                        <a className="ahs-btn" href="https://archive.org/download/ahsbq-ns-instrument/AHSBQ-NS%20instrument.zip" download><i className="fas fa-file-download"></i> Download the Questionnaire</a>
+                    </p>
+                    <p>
+                        <em><strong>Source (Published article):</strong></em> Ibrahim, M. M., Monne, R., Tawiah, B. C., Adam, H., Abukari, M. S., Salifu, R., Sisala, I. M., &amp; Wuni, A. (2026). Validity and Reliability Study of a Scale to Measure Academic Help-seeking Behaviors Among Nursing Students in Ghana. <em>Journal of Education and Research in Nursing</em>, 23(1), 1–10.{' '}
+                        <a href="https://doi.org/10.14744/jern.2025.70745" target="_blank" rel="noopener noreferrer">DOI Link</a> | <a href="https://www.researchgate.net/publication/399881302_Validity_and_Reliability_Study_of_a_Scale_to_Measure_Academic_Help-seeking_Behaviors_Among_Nursing_Students_in_Ghana" target="_blank" rel="noopener noreferrer">Other Link</a>
+                    </p>
+
+                    <h2>Three Subscales</h2>
+                    <ul className="ahs-subscales">
+                        <li><strong>Instrumental Help-Seeking</strong> (items 1–3): prefers conceptual understanding over direct answers.</li>
+                        <li><strong>Executive Help-Seeking</strong> (items 4–12): prefers direct answers and solutions.</li>
+                        <li><strong>Avoidance Help-Seeking</strong> (items 13–19): reluctance to seek assistance from others.</li>
+                    </ul>
+
+                    <h2>The Questionnaire</h2>
+                    <p>For each statement below, select the number that best represents your typical academic behavior as a nursing student, using the scale provided.</p>
+
+                    <div className="ahs-scale">
+                        <div className="ahs-scale-label">Response scale: select one number per item</div>
+                        <div className="ahs-scale-track">
+                            {[1,2,3,4,5,6,7,8].map(n => (
+                                <div className="ahs-scale-pt" key={n}>
+                                    <b>{n}</b>
+                                    <small>{n === 1 ? 'Strongly False' : n === 8 ? 'Strongly True' : ''}</small>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="ahs-endpoints">
+                            <span>1 = Not true of me at all</span>
+                            <span>8 = Completely true of me</span>
+                        </div>
+                    </div>
+
+                    {AHS_GROUPS.map(g => (
+                        <React.Fragment key={g.scale}>
+                            <h3>{g.title}</h3>
+                            <div className="ahs-group-desc">{g.desc}</div>
+                            <div className="ahs-qlist">
+                                {AHS_ITEMS.map((item, idx) => item.scale === g.scale && (
+                                    <div className={`ahs-q ${missing.includes(item.id) ? 'err' : ''}`} id={`ahs-q-${item.id}`} key={item.id}>
+                                        <div className="ahs-qnum">{idx + 1}</div>
+                                        <div className="ahs-qtext">
+                                            {item.text}
+                                            {missing.includes(item.id) && <div className="ahs-qerr"><i className="fas fa-exclamation-circle"></i> Please select a rating for this item.</div>}
+                                        </div>
+                                        <div className="ahs-rate" role="radiogroup" aria-label={`Item ${idx + 1} rating`}>
+                                            {[1,2,3,4,5,6,7,8].map(v => (
+                                                <div key={v}>
+                                                    <input type="radio" name={`ahs-${item.id}`} id={`ahs-${item.id}-${v}`} value={v} checked={answers[item.id] === v} onChange={() => setAnswer(item.id, v)} />
+                                                    <label htmlFor={`ahs-${item.id}-${v}`}>{v}</label>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </React.Fragment>
+                    ))}
+
+                    {missing.length > 0 && (
+                        <div className="ahs-alert" role="alert">
+                            {missing.length} item{missing.length > 1 ? 's are' : ' is'} unanswered. Please complete all remaining item{missing.length > 1 ? 's' : ''} for an accurate result.
+                        </div>
+                    )}
+
+                    <div className="ahs-actions">
+                        <button type="button" className="ahs-btn" onClick={generate}><i className="fas fa-chart-bar"></i> Generate My Results</button>
+                        <button type="button" className="ahs-btn ghost" onClick={reset}><i className="fas fa-undo-alt"></i> Clear All Responses</button>
+                    </div>
+
+                    {results && (
+                        <div ref={resultsRef}>
+                            <h2>Your Assessment Results</h2>
+                            <p className="ahs-total-line">Total score (19 items): <strong>{results.grand}</strong></p>
+                            <div className="ahs-res">
+                                {resultCards.map(c => (
+                                    <div className={`ahs-res-row ${results.highestList.includes(c.scale) ? 'top' : ''}`} key={c.scale}>
+                                        <div className="ahs-res-name">{c.title}{results.highestList.includes(c.scale) && <span className="ahs-top-note">Highest</span>}<small>Mean of {results.counts[c.scale]} items</small></div>
+                                        <div className="ahs-res-mean">{results.means[c.scale].toFixed(2)}</div>
+                                        <div className="ahs-bar"><div style={{ width: barsOn ? ((results.means[c.scale] / 8) * 100) + '%' : '0%' }}></div></div>
+                                    </div>
+                                ))}
+                            </div>
+                            <h3>Your Predominant Help-Seeking Style</h3>
+                            <div className="ahs-trait">
+                                <p className="ahs-trait-name">
+                                    {results.highestList.length === 1
+                                        ? AHS_TRAITS[results.highestList[0]].name
+                                        : results.highestList.map(k => AHS_TRAITS[k].name).join(' and ')}
+                                </p>
+                                {results.highestList.length > 1 && (
+                                    <p>Your highest mean scores are tied, so you show a combination of these styles equally. Each is described below.</p>
+                                )}
+                                {results.highestList.map(k => (
+                                    <p key={k}>{results.highestList.length > 1 && <strong>{AHS_TRAITS[k].name}: </strong>}{AHS_TRAITS[k].text}</p>
+                                ))}
+                            </div>
+                            <h3>Interpretation Guidance</h3>
+                            <p>The subscale with the <strong>highest mean score</strong> indicates your predominant help-seeking style. <strong>Instrumental</strong> learners prefer conceptual understanding and explanation over direct answers. <strong>Executive</strong> learners prioritize getting direct answers and having work completed for them. <strong>Avoidance</strong> indicates hesitance or reluctance to seek help from others. Higher scores (closer to 8) reflect stronger tendencies in each dimension. No style is inherently better; awareness of your style can help you optimize how you seek academic support.</p>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
         const AcademicPortfolio = () => {
-            const [activeSection, setActiveSection] = useState('about');
+            const VALID_TABS = ['about', 'publications', 'shiny', 'blog', 'teaching', 'gallery', 'ahsbq', 'connect'];
+            const [activeSection, setActiveSection] = useState(() => {
+                try {
+                    const saved = sessionStorage.getItem('active-tab');
+                    return VALID_TABS.includes(saved) ? saved : 'about';
+                } catch (e) { return 'about'; }
+            });
+            useEffect(() => {
+                try { sessionStorage.setItem('active-tab', activeSection); } catch (e) {}
+            }, [activeSection]);
             const [blogPosts, setBlogPosts] = useState([]);
             const [loadingBlog, setLoadingBlog] = useState(true);
             const [blogError, setBlogError] = useState(false);
@@ -1759,7 +2037,7 @@
                         <div className="bio-text">
                         <p>Welcome. I am Mudasir Mohammed Ibrahim, a Registered Nurse (RN) and health researcher whose scholarship lies at the intersection of applied biostatistics, chronic disease epidemiology, nursing education, and public health. My work applies rigorous quantitative methods to clinically and population-relevant questions, with the aim of improving health outcomes, strengthening health systems, and informing policy. I am equally committed to academic mentorship, research training, and the promotion of accessible, data-driven approaches to health research.</p>
                         <p>I currently practise at <a href="https://tth.gov.gh" target="_blank" rel="noopener noreferrer">Tamale Teaching Hospital (TTH)</a>, where clinical experience has shaped my research agenda around real-world challenges in healthcare delivery. I also serve as a peer reviewer for international journals.</p>
-                        <p>A central strand of my academic work concerns the development, adaptation, and psychometric validation of research instruments. I led the adaptation and validation of the <a href="https://www.researchgate.net/publication/399881302_Validity_and_Reliability_Study_of_a_Scale_to_Measure_Academic_Help-seeking_Behaviors_Among_Nursing_Students_in_Ghana?_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6ImxvZ2luIiwic2Vjb25kUGFnZSI6InByb2ZpbGUifX0" target="_blank" rel="noopener noreferrer">Academic Help-Seeking Behavior Questionnaire for Nursing Students (AHSBQ-NS)</a>, derived from the <a href="https://psycnet.apa.org/doi/10.1177/0013164403258447" target="_blank" rel="noopener noreferrer">Computer Science Help-Seeking Scales developed by Pajares and colleagues (2004)</a>, in order to furnish a culturally and contextually appropriate measure of academic help-seeking among nursing students in Ghana. The instrument is available <a href="https://ahsbq-ns.vercel.app/" target="_blank" rel="noopener noreferrer">here</a>.</p>
+                        <p>A central strand of my academic work concerns the development, adaptation, and psychometric validation of research instruments. I led the adaptation and validation of the <a href="https://www.researchgate.net/publication/399881302_Validity_and_Reliability_Study_of_a_Scale_to_Measure_Academic_Help-seeking_Behaviors_Among_Nursing_Students_in_Ghana?_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6ImxvZ2luIiwic2Vjb25kUGFnZSI6InByb2ZpbGUifX0" target="_blank" rel="noopener noreferrer">Academic Help-Seeking Behavior Questionnaire for Nursing Students (AHSBQ-NS)</a>, derived from the <a href="https://psycnet.apa.org/doi/10.1177/0013164403258447" target="_blank" rel="noopener noreferrer">Computer Science Help-Seeking Scales developed by Pajares and colleagues (2004)</a>, in order to furnish a culturally and contextually appropriate measure of academic help-seeking among nursing students in Ghana. The instrument is available <a href="#" onClick={(e) => { e.preventDefault(); setActiveSection('ahsbq'); }}>here</a>.</p>
                         <p>I also developed MedModr, an open-source, browser-based statistical tool for mediation, moderation, and conditional process analysis. Requiring neither licence nor installation, it renders these advanced techniques tractable for researchers, particularly those in resource-constrained settings without recourse to advanced programming. The tool is freely accessible <a href="https://shinyhealthtools.github.io/medmodr/" target="_blank" rel="noopener noreferrer">online</a>, with full guidance provided in its <a href="https://shinyopensource.github.io/medmodr-documentation/" target="_blank" rel="noopener noreferrer">documentation</a>. Several additional tools I have built are available in the <a href="#" onClick={(e) => { e.preventDefault(); handleSectionChange('shiny'); }}>Software</a> section.</p>
                         <p>My broader objective is to cultivate a research culture grounded in methodological rigour, open science, and accessible analytical tools. Through methodological innovation, collaboration, and interdisciplinary scholarship, I seek to bridge clinical knowledge and quantitative science so as to yield findings with meaningful implications for healthcare and society.</p>
 </div>
@@ -2666,6 +2944,7 @@ moderation, and conditional process analyses. <em>SoftwareX</em>, 35, 102895. do
                 { id: 'blog', icon: 'fa-pen-nib', label: 'Blog' },
                 { id: 'teaching', icon: 'fa-chalkboard-teacher', label: 'Teaching' },
                 { id: 'gallery', icon: 'fa-images', label: 'Gallery' },
+                { id: 'ahsbq', icon: 'fa-clipboard-list', label: 'AHSBQ-NS' },
                 { id: 'connect', icon: 'fa-share-alt', label: 'Connect' }
             ];
             const mobileSocialLinks = [
@@ -2768,6 +3047,7 @@ moderation, and conditional process analyses. <em>SoftwareX</em>, 35, 102895. do
                             {activeSection === 'blog' && renderBlog()}
                             {activeSection === 'teaching' && renderTeaching()}
                             {activeSection === 'gallery' && <GalleryComponent />}
+                            {activeSection === 'ahsbq' && <AHSBQComponent />}
                             {activeSection === 'connect' && renderConnect()}
                         </div>
 
