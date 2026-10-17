@@ -1654,12 +1654,8 @@
                         </div>
                     </div>
 
-                    {AHS_GROUPS.map(g => (
-                        <React.Fragment key={g.scale}>
-                            <h3>{g.title}</h3>
-                            <div className="ahs-group-desc">{g.desc}</div>
-                            <div className="ahs-qlist">
-                                {AHS_ITEMS.map((item, idx) => item.scale === g.scale && (
+                    <div className="ahs-qlist">
+                        {AHS_ITEMS.map((item, idx) => (
                                     <div className={`ahs-q ${missing.includes(item.id) ? 'err' : ''}`} id={`ahs-q-${item.id}`} key={item.id}>
                                         <div className="ahs-qnum">{idx + 1}</div>
                                         <div className="ahs-qtext">
@@ -1675,10 +1671,8 @@
                                             ))}
                                         </div>
                                     </div>
-                                ))}
-                            </div>
-                        </React.Fragment>
-                    ))}
+                        ))}
+                    </div>
 
                     {missing.length > 0 && (
                         <div className="ahs-alert" role="alert">
@@ -2038,7 +2032,7 @@
                         <p>Welcome. I am Mudasir Mohammed Ibrahim, a Registered Nurse (RN) and health researcher whose scholarship lies at the intersection of applied biostatistics, chronic disease epidemiology, nursing education, and public health. My work applies rigorous quantitative methods to clinically and population-relevant questions, with the aim of improving health outcomes, strengthening health systems, and informing policy. I am equally committed to academic mentorship, research training, and the promotion of accessible, data-driven approaches to health research.</p>
                         <p>I currently practise at <a href="https://tth.gov.gh" target="_blank" rel="noopener noreferrer">Tamale Teaching Hospital (TTH)</a>, where clinical experience has shaped my research agenda around real-world challenges in healthcare delivery. I also serve as a peer reviewer for international journals.</p>
                         <p>A central strand of my academic work concerns the development, adaptation, and psychometric validation of research instruments. I led the adaptation and validation of the <a href="https://www.researchgate.net/publication/399881302_Validity_and_Reliability_Study_of_a_Scale_to_Measure_Academic_Help-seeking_Behaviors_Among_Nursing_Students_in_Ghana?_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6ImxvZ2luIiwic2Vjb25kUGFnZSI6InByb2ZpbGUifX0" target="_blank" rel="noopener noreferrer">Academic Help-Seeking Behavior Questionnaire for Nursing Students (AHSBQ-NS)</a>, derived from the <a href="https://psycnet.apa.org/doi/10.1177/0013164403258447" target="_blank" rel="noopener noreferrer">Computer Science Help-Seeking Scales developed by Pajares and colleagues (2004)</a>, in order to furnish a culturally and contextually appropriate measure of academic help-seeking among nursing students in Ghana. The instrument is available <a href="#" onClick={(e) => { e.preventDefault(); setActiveSection('ahsbq'); }}>here</a>.</p>
-                        <p>I also developed MedModr, an open-source, browser-based statistical tool for mediation, moderation, and conditional process analysis. Requiring neither licence nor installation, it renders these advanced techniques tractable for researchers, particularly those in resource-constrained settings without recourse to advanced programming. The tool is freely accessible <a href="https://shinyhealthtools.github.io/medmodr/" target="_blank" rel="noopener noreferrer">online</a>, with full guidance provided in its <a href="https://shinyopensource.github.io/medmodr-documentation/" target="_blank" rel="noopener noreferrer">documentation</a>. Several additional tools I have built are available in the <a href="#" onClick={(e) => { e.preventDefault(); handleSectionChange('shiny'); }}>Software</a> section.</p>
+                        <p>I also developed MedModr, an open-source, browser-based statistical tool for mediation, moderation, and conditional process analysis, published in <a href="https://doi.org/10.1016/j.softx.2026.102895" target="_blank" rel="noopener noreferrer">SoftwareX</a> (Elsevier). Requiring neither licence nor installation, it renders these advanced techniques tractable for researchers, particularly those in resource-constrained settings without recourse to advanced programming. The tool is freely accessible <a href="https://shinyhealthtools.github.io/medmodr/" target="_blank" rel="noopener noreferrer">online</a> and works on any device, including desktops, Android tablets, iPads, and mobile phones. Full guidance is provided in its <a href="https://shinyopensource.github.io/medmodr-documentation/" target="_blank" rel="noopener noreferrer">documentation</a>, where you can also read more about the tool or download it for offline use on any of these devices. Several additional tools I have built, which you may find useful, are available in the <a href="#" onClick={(e) => { e.preventDefault(); handleSectionChange('shiny'); }}>Software</a> section.</p>
                         <p>My broader objective is to cultivate a research culture grounded in methodological rigour, open science, and accessible analytical tools. Through methodological innovation, collaboration, and interdisciplinary scholarship, I seek to bridge clinical knowledge and quantitative science so as to yield findings with meaningful implications for healthcare and society.</p>
 </div>
                           <h2 className="section-title">Employment History</h2>
@@ -2091,7 +2085,7 @@
                 onMouseOver={(e) => e.target.style.borderBottomColor = 'var(--nav-hover)'}
                 onMouseOut={(e) => e.target.style.borderBottomColor = 'transparent'}>Nurses' and Midwives' Training College, Tamale (NMTC, Tamale)</a>
         </div>
-        <div style={{ fontSize: '0.95rem', color: 'var(--text-color)', fontWeight: '400', marginBottom: '5px', lineHeight: '1.5' }}>Diploma in General Nursing</div>
+        <div style={{ fontSize: '0.95rem', color: 'var(--text-color)', fontWeight: '400', marginBottom: '5px', lineHeight: '1.5' }}>Diploma in General Nursing (RGN)</div>
         <div className="item-period">2017 – 2020</div>
     </li>
     <li className="education-item">
