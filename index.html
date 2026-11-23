@@ -1567,6 +1567,12 @@
         /* ====== HEADER TABS (all screen sizes): tabs sit in the header, aligned with the page margins ====== */
         .top-tabs-tools { display: contents; }
 
+
+        /* ====== DESKTOP BROWSER VIEW: render the whole page like a 90% browser zoom ====== */
+        @media (min-width: 901px) {
+            .page-card { zoom: 0.9; width: calc((100% - 48px) / 0.9); }
+        }
+        @media print { .page-card { zoom: 1 !important; } }
     </style>
 </head>
 <body>
