@@ -1649,6 +1649,45 @@
     <div id="root"></div>
 
     <script type="text/babel">
+
+        // Back to Top: short delay, then a slow eased glide (cancels if user scrolls)
+        let __btt_busy = false;
+        function delayedScrollToTop() {
+            if (__btt_busy) return;
+            const startY = window.pageYOffset || document.documentElement.scrollTop;
+            if (startY <= 0) return;
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                window.scrollTo(0, 0);
+                return;
+            }
+            __btt_busy = true;
+            const DELAY = 200;
+            const duration = Math.min(1200, Math.max(600, startY * 0.3));
+            const ease = t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+            let rafId = null, timerId = null;
+            const cancel = () => {
+                clearTimeout(timerId);
+                if (rafId) cancelAnimationFrame(rafId);
+                window.removeEventListener('wheel', cancel);
+                window.removeEventListener('touchstart', cancel);
+                window.removeEventListener('keydown', cancel);
+                __btt_busy = false;
+            };
+            window.addEventListener('wheel', cancel, { passive: true });
+            window.addEventListener('touchstart', cancel, { passive: true });
+            window.addEventListener('keydown', cancel);
+            timerId = setTimeout(() => {
+                const t0 = performance.now();
+                const step = now => {
+                    const p = Math.min(1, (now - t0) / duration);
+                    window.scrollTo(0, startY * (1 - ease(p)));
+                    if (p < 1) rafId = requestAnimationFrame(step);
+                    else cancel();
+                };
+                rafId = requestAnimationFrame(step);
+            }, DELAY);
+        }
+
         const { useState, useEffect, useRef } = React;
 
         // ====== AHSBQ-NS COMPONENT (defined outside AcademicPortfolio so answers are kept while using the page) ======
@@ -3269,7 +3308,7 @@ const publicationsByYear = {
                                     }} style={{}}>
                                         <i className="fas fa-print"></i> Print Page
                                     </button>
-                                    <button className="bottom-footer-btn" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                                    <button className="bottom-footer-btn" onClick={delayedScrollToTop}>
                                         <i className="fas fa-arrow-up"></i> Back to Top
                                     </button>
                                     <a className="bottom-footer-github" href="https://github.com/mudasiribrahim/gh" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
