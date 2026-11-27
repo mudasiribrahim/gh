@@ -1220,6 +1220,19 @@
             color: var(--nav-hover);
             text-decoration: underline;
         }
+        .bottom-footer-github {
+            color: var(--text-color);
+            font-size: 0.85rem;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .bottom-footer-github:hover {
+            color: var(--nav-hover);
+            text-decoration: none;
+        }
 
         @media (max-width: 700px) {
             .bottom-footer-inner {
@@ -2116,6 +2129,7 @@
                                             <a href="https://www.webofscience.com/wos/author/record/HPC-2085-2023" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="Web of Science"><i className="fas fa-book-open"></i></a>
                                             <a href="https://github.com/shinyhealthtools" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="GitHub"><i className="fab fa-github"></i></a>
                                             <a href="https://linkedin.com/in/mudasir-mohammed-ibrahim-16b5141b0" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="LinkedIn"><i className="fab fa-linkedin"></i></a>
+                                            <a href="https://www.youtube.com/@mudasirmohammedibrahim1026/videos" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="YouTube"><i className="fab fa-youtube"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -3256,6 +3270,9 @@ moderation, and conditional process analyses. <em>SoftwareX</em>, 35, 102895. do
                                     <button className="bottom-footer-btn" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                                         <i className="fas fa-arrow-up"></i> Back to Top
                                     </button>
+                                    <a className="bottom-footer-github" href="https://github.com/mudasiribrahim/gh" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                                        <i className="fab fa-github"></i>
+                                    </a>
                                 </div>
                             </div>
                         </footer>
