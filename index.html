@@ -29,6 +29,7 @@
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.5/css/academicons.min.css" />
     
     <!-- Google Fonts -->
     
@@ -499,6 +500,18 @@
         .modal-nav:hover { background: rgba(52, 152, 219, 0.9); }
         .modal-prev { left: 20px; }
         .modal-next { right: 20px; }
+        /* Gallery viewer zoom */
+        .gallery-modal .modal-content.zoom-viewer { width: 96vw; max-width: 96vw; height: 94vh; height: 94dvh; max-height: none; display: flex; flex-direction: column; }
+        .zoom-stage { position: relative; flex: 1; min-height: 0; overflow: hidden; background: var(--light-bg); touch-action: none; user-select: none; -webkit-user-select: none; cursor: zoom-in; }
+        .zoom-stage.zoomed { cursor: grab; }
+        .zoom-stage.zoomed:active { cursor: grabbing; }
+        .zoom-stage .modal-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; max-height: none; padding: 0; background: none; object-fit: contain; transform-origin: center center; -webkit-user-drag: none; }
+        .zoom-bar { display: flex; justify-content: center; align-items: center; gap: 12px; padding: 10px; background: var(--card-bg); }
+        .zoom-bar button { min-width: 40px; height: 40px; border: none; border-radius: 20px; background: rgba(0, 0, 0, 0.7); color: #fff; font-size: 1rem; cursor: pointer; }
+        .zoom-bar button:hover:not(:disabled) { background: rgba(52, 152, 219, 0.9); }
+        .zoom-bar button:disabled { opacity: 0.35; cursor: default; }
+        .zoom-bar .zoom-level { min-width: 76px; }
+        .zoom-viewer .modal-info { padding: 0 15px 12px; }
         .gallery-controls {
             display: flex; justify-content: space-between; align-items: center;
             margin-bottom: 30px; padding: 20px; background-color: var(--card-bg);
@@ -805,6 +818,9 @@
         body.dark-mode .profile-social-icon[title="GitHub"]:hover { color: #f0f6fc !important; background-color: rgba(240, 246, 252, 0.1); border-color: #f0f6fc; }
         .profile-social-icon[title="LinkedIn"]:hover { color: #0077b5 !important; background-color: rgba(0, 119, 181, 0.1); border-color: #0077b5; }
         .profile-social-icon[title="Download CV"]:hover { color: #e74c3c !important; background-color: rgba(231, 76, 60, 0.1); border-color: #e74c3c; }
+        .profile-social-icon[title="ResearchGate"]:hover { color: #00ccbb !important; background-color: rgba(0, 204, 187, 0.1); border-color: #00ccbb; }
+        .profile-social-icon[title="Academia"]:hover { color: #41454a !important; background-color: rgba(65, 69, 74, 0.1); border-color: #41454a; }
+        body.dark-mode .profile-social-icon[title="Academia"]:hover { color: #f0f6fc !important; background-color: rgba(240, 246, 252, 0.1); border-color: #f0f6fc; }
         .profile-social-icon[title="YouTube"]:hover { color: #ff0000 !important; background-color: rgba(255, 0, 0, 0.1); border-color: #ff0000; }
         .profile-social-icon[title="Web of Science"]:hover { color: #0d5c8c !important; background-color: rgba(13, 92, 140, 0.1); border-color: #0d5c8c; }
         .profile-social-icon::after {
@@ -818,6 +834,8 @@
         .profile-social-icon:hover::after { opacity: 1; visibility: visible; bottom: -35px; }
         .profile-social-icon { border: 1px solid transparent; transition: all 0.3s ease; }
         .profile-social-icon:hover { border-width: 1px; border-style: solid; }
+        @media (max-width: 480px) { .profile-social-icons { flex-wrap: wrap; gap: 4px; justify-content: center !important; } .profile-social-icons .profile-social-icon { width: 36px; height: 36px; font-size: 1.3rem; } }
+        @media (max-width: 360px) { .profile-social-icons { gap: 2px; } .profile-social-icons .profile-social-icon { width: 30px; height: 30px; font-size: 1.15rem; } }
 
         /* DOI links */
         a[href*="doi.org"], a[href*="dx.doi"], a[href*="doi/"],
@@ -1157,6 +1175,9 @@
         .connect-social-item[data-platform="wos"]:hover i { color: #0d5c8c; }
         .connect-social-item[data-platform="github"]:hover i { color: #6e40c9; }
         .connect-social-item[data-platform="linkedin"]:hover i { color: #0077b5; }
+        .connect-social-item[data-platform="researchgate"]:hover i { color: #00ccbb; }
+        .connect-social-item[data-platform="academia"]:hover i { color: #41454a; }
+        body.dark-mode .connect-social-item[data-platform="academia"]:hover i { color: #f0f6fc; }
         .connect-social-item[data-platform="youtube"]:hover i { color: #ff0000; }
 
         /* ====== BOTTOM FOOTER (blends with body background) ====== */
@@ -2163,10 +2184,11 @@
                                             <span><a href="https://www.google.com/maps/place/Tamale,+Northern+Region,+Ghana" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-color)', textDecoration: 'none', fontWeight: '500' }}>Tamale, Northern Region, Ghana</a></span>
                                         </div>
                                         <div className="profile-social-icons" style={{ marginTop: '25px', justifyContent: 'flex-start' }}>
+                                            <a href="https://www.researchgate.net/profile/Mudasir-Ibrahim" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="ResearchGate"><i className="fab fa-researchgate"></i></a>
+                                            <a href="https://aids.academia.edu/MudasirIbrahim" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="Academia"><i className="ai ai-academia"></i></a>
                                             <a href="https://orcid.org/0000-0002-9049-8222" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="ORCID"><i className="fab fa-orcid"></i></a>
                                             <a href="https://scholar.google.com/citations?user=xEFzAvgAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="Google Scholar"><i className="fas fa-graduation-cap"></i></a>
                                             <a href="https://www.webofscience.com/wos/author/record/HPC-2085-2023" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="Web of Science"><i className="fas fa-book-open"></i></a>
-                                            <a href="https://github.com/shinyhealthtools" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="GitHub"><i className="fab fa-github"></i></a>
                                             <a href="https://linkedin.com/in/mudasir-mohammed-ibrahim-16b5141b0" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="LinkedIn"><i className="fab fa-linkedin"></i></a>
                                             <a href="https://www.youtube.com/@mudasirmohammedibrahim1026/videos" target="_blank" rel="noopener noreferrer" className="profile-social-icon" title="YouTube"><i className="fab fa-youtube"></i></a>
                                         </div>
@@ -2782,6 +2804,12 @@ const publicationsByYear = {
                     {/* Social Platforms */}
                     <h2 className="section-title" style={{ marginTop: '20px' }}>Academic & Social Profiles</h2>
                     <div className="connect-social-grid">
+                        <a href="https://www.researchgate.net/profile/Mudasir-Ibrahim" target="_blank" rel="noopener noreferrer" className="connect-social-item" data-platform="researchgate">
+                            <i className="fab fa-researchgate"></i> ResearchGate
+                        </a>
+                        <a href="https://aids.academia.edu/MudasirIbrahim" target="_blank" rel="noopener noreferrer" className="connect-social-item" data-platform="academia">
+                            <i className="ai ai-academia"></i> Academia
+                        </a>
                         <a href="https://orcid.org/0000-0002-9049-8222" target="_blank" rel="noopener noreferrer" className="connect-social-item" data-platform="orcid">
                             <i className="fab fa-orcid"></i> ORCID
                         </a>
@@ -2971,6 +2999,125 @@ const publicationsByYear = {
                 );
             };
 
+            // ====== ZOOMABLE GALLERY IMAGE ======
+            const ZoomableImage = ({ src, alt, onError }) => {
+                const MIN = 1, MAX = 6;
+                const [view, setView] = React.useState({ s: 1, x: 0, y: 0 });
+                const stageRef = React.useRef(null);
+                const imgRef = React.useRef(null);
+                const pointers = React.useRef(new Map());
+                const tap = React.useRef({ time: 0, x: 0, y: 0, moved: false });
+
+                // Keep the scale within limits and stop the photo being dragged out of view
+                const clamp = (s, x, y) => {
+                    s = Math.min(MAX, Math.max(MIN, s));
+                    const stage = stageRef.current, img = imgRef.current;
+                    if (!stage || !img || !img.naturalWidth) return { s, x: 0, y: 0 };
+                    const w = stage.clientWidth, h = stage.clientHeight;
+                    const fit = Math.min(w / img.naturalWidth, h / img.naturalHeight);
+                    const mx = Math.max(0, (img.naturalWidth * fit * s - w) / 2);
+                    const my = Math.max(0, (img.naturalHeight * fit * s - h) / 2);
+                    return { s, x: Math.min(mx, Math.max(-mx, x)), y: Math.min(my, Math.max(-my, y)) };
+                };
+                // Position measured from the centre of the viewer
+                const fromCentre = (cx, cy) => {
+                    const r = stageRef.current.getBoundingClientRect();
+                    return { x: cx - r.left - r.width / 2, y: cy - r.top - r.height / 2 };
+                };
+                // Zoom by a factor, keeping the point under the cursor or fingers in place
+                const zoomBy = (factor, p = { x: 0, y: 0 }, dx = 0, dy = 0) => setView(v => {
+                    const s = Math.min(MAX, Math.max(MIN, v.s * factor));
+                    const k = s / v.s;
+                    return clamp(s, p.x - (p.x - v.x) * k + dx, p.y - (p.y - v.y) * k + dy);
+                });
+                const reset = () => setView({ s: 1, x: 0, y: 0 });
+                const zoomed = React.useRef(false);
+                zoomed.current = view.s > 1;
+
+                React.useEffect(() => {
+                    const stage = stageRef.current;
+                    const onWheel = (e) => { e.preventDefault(); zoomBy(Math.exp(-e.deltaY * (e.deltaMode ? 0.05 : 0.002)), fromCentre(e.clientX, e.clientY)); };
+                    const onKey = (e) => {
+                        if (e.ctrlKey || e.metaKey) return;
+                        if (e.key === '+' || e.key === '=') zoomBy(1.4);
+                        else if (e.key === '-') zoomBy(1 / 1.4);
+                        else if (e.key === '0') reset();
+                    };
+                    const onResize = () => setView(v => clamp(v.s, v.x, v.y));
+                    stage.addEventListener('wheel', onWheel, { passive: false });
+                    window.addEventListener('keydown', onKey);
+                    // While zoomed, the arrow keys move around the photo instead of changing it
+                    const onArrow = (e) => {
+                        const dir = { ArrowLeft: [1, 0], ArrowRight: [-1, 0], ArrowUp: [0, 1], ArrowDown: [0, -1] }[e.key];
+                        if (!dir || !zoomed.current || e.altKey || e.ctrlKey || e.metaKey) return;
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setView(v => clamp(v.s, v.x + dir[0] * 80, v.y + dir[1] * 80));
+                    };
+                    window.addEventListener('keydown', onArrow, true);
+                    window.addEventListener('resize', onResize);
+                    return () => {
+                        stage.removeEventListener('wheel', onWheel);
+                        window.removeEventListener('keydown', onKey);
+                        window.removeEventListener('keydown', onArrow, true);
+                        window.removeEventListener('resize', onResize);
+                    };
+                }, []);
+
+                const onPointerDown = (e) => {
+                    if (e.button !== 0) return;
+                    e.currentTarget.setPointerCapture(e.pointerId);
+                    pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY, startX: e.clientX, startY: e.clientY });
+                    if (pointers.current.size === 1) tap.current.moved = false;
+                    else tap.current.moved = true;
+                };
+                const onPointerMove = (e) => {
+                    const prev = pointers.current.get(e.pointerId);
+                    if (!prev) return;
+                    const next = { ...prev, x: e.clientX, y: e.clientY };
+                    if (Math.hypot(next.x - next.startX, next.y - next.startY) > 8) tap.current.moved = true;
+                    const other = [...pointers.current.entries()].find(([id]) => id !== e.pointerId);
+                    pointers.current.set(e.pointerId, next);
+                    if (other) {
+                        // Two fingers: pinch to zoom and move
+                        const o = other[1];
+                        const before = Math.hypot(prev.x - o.x, prev.y - o.y);
+                        const after = Math.hypot(next.x - o.x, next.y - o.y);
+                        const mid = fromCentre((prev.x + o.x) / 2, (prev.y + o.y) / 2);
+                        if (before > 0) zoomBy(after / before, mid, (next.x - prev.x) / 2, (next.y - prev.y) / 2);
+                    } else {
+                        // One finger or mouse: drag a zoomed photo
+                        const dx = next.x - prev.x, dy = next.y - prev.y;
+                        setView(v => clamp(v.s, v.x + dx, v.y + dy));
+                    }
+                };
+                const onPointerUp = (e) => {
+                    if (!pointers.current.delete(e.pointerId)) return;
+                    if (e.type !== 'pointerup' || tap.current.moved || pointers.current.size) return;
+                    // Double-click or double-tap: zoom in, or return to full view
+                    const t = tap.current, now = Date.now();
+                    if (now - t.time < 350 && Math.hypot(e.clientX - t.x, e.clientY - t.y) < 30) {
+                        if (view.s > 1) reset(); else zoomBy(2.5, fromCentre(e.clientX, e.clientY));
+                        t.time = 0;
+                    } else {
+                        t.time = now; t.x = e.clientX; t.y = e.clientY;
+                    }
+                };
+
+                return (
+                    <React.Fragment>
+                        <div ref={stageRef} className={`zoom-stage ${view.s > 1 ? 'zoomed' : ''}`} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp}>
+                            <img ref={imgRef} src={src} alt={alt} className="modal-image" draggable="false" onError={onError} style={{ transform: `translate(${view.x}px, ${view.y}px) scale(${view.s})` }} />
+                        </div>
+                        <div className="zoom-bar">
+                            <button type="button" onClick={() => zoomBy(1 / 1.4)} disabled={view.s <= MIN} aria-label="Zoom out" title="Zoom out"><i className="fas fa-search-minus"></i></button>
+                            <button type="button" className="zoom-level" onClick={reset} aria-label="Reset zoom" title="Reset zoom">{Math.round(view.s * 100)}%</button>
+                            <button type="button" onClick={() => zoomBy(1.4)} disabled={view.s >= MAX} aria-label="Zoom in" title="Zoom in"><i className="fas fa-search-plus"></i></button>
+                        </div>
+                    </React.Fragment>
+                );
+            };
+
             // ====== GALLERY COMPONENT ======
             const GalleryComponent = () => {
                 const [galleryItems, setGalleryItems] = useState([
@@ -3079,7 +3226,6 @@ const publicationsByYear = {
                                         <div key={item.id} className={`gallery-item ${isLongImage(item.id) ? 'long-image' : ''}`} onClick={() => handleImageClick(item)} title={isLongImage(item.id) ? "Long image - shows top portion" : ""}>
                                             <div className="gallery-image-container">
                                                 <img src={item.imageUrl} alt={`Gallery image ${item.id}`} className="gallery-image" onError={handleImageError} loading="lazy" />
-                                                <div className="category-badge">{item.category}</div>
                                                 {isLongImage(item.id) && (<div style={{ position: 'absolute', top: '40px', left: '15px', backgroundColor: 'rgba(52, 152, 219, 0.9)', color: 'white', padding: '3px 8px', borderRadius: '10px', fontSize: '1rem', zIndex: 5 }}><i className="fas fa-arrow-down" style={{ marginRight: '3px' }}></i>Tall Image</div>)}
                                                 <div className="gallery-overlay"><i className="fas fa-search-plus"></i></div>
                                             </div>
@@ -3102,24 +3248,23 @@ const publicationsByYear = {
                                 <button className="gallery-btn" onClick={() => { setSelectedCategory('all'); }} style={{ marginTop: '20px' }}><i className="fas fa-eye"></i> Show All Images</button>
                             </div>
                         )}
-                        {selectedImage && (
+                        {selectedImage && ReactDOM.createPortal((
                             <div className="gallery-modal active">
-                                <div className="modal-content">
+                                <div className="modal-content zoom-viewer">
                                     <button className="modal-close" onClick={handleCloseModal}><i className="fas fa-times"></i></button>
                                     <div className="image-counter">{filteredItems.findIndex(item => item.id === selectedImage.id) + 1} / {filteredItems.length}</div>
                                     <button className="modal-nav modal-prev" onClick={handlePrevImage}><i className="fas fa-chevron-left"></i></button>
-                                    <img src={selectedImage.imageUrl} alt={`Gallery image ${selectedImage.id}`} className="modal-image" onError={(e) => { e.target.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%23f5f5f5'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='20' text-anchor='middle' fill='%23666'%3EImage not available%3C/text%3E%3C/svg%3E`; e.target.style.objectFit = 'contain'; }} />
+                                    <ZoomableImage key={selectedImage.id} src={selectedImage.imageUrl} alt={`Gallery image ${selectedImage.id}`} onError={(e) => { e.target.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%23f5f5f5'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='20' text-anchor='middle' fill='%23666'%3EImage not available%3C/text%3E%3C/svg%3E`; e.target.style.objectFit = 'contain'; }} />
                                     <button className="modal-nav modal-next" onClick={handleNextImage}><i className="fas fa-chevron-right"></i></button>
                                     <div className="modal-info">
                                         <div className="gallery-date" style={{ justifyContent: 'center' }}>
                                             <i className="far fa-calendar"></i>{formatDate(selectedImage.date)}
-                                            <span style={{ marginLeft: '10px', fontSize: '1rem', opacity: 0.7 }}>({selectedImage.category})</span>
                                             {isLongImage(selectedImage.id) && (<span style={{ marginLeft: '10px', fontSize: '1rem', color: '#3498db', backgroundColor: 'rgba(52, 152, 219, 0.1)', padding: '2px 8px', borderRadius: '10px' }}><i className="fas fa-arrow-down" style={{ marginRight: '3px' }}></i>Tall Image</span>)}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        )}
+                        ), document.body)}
                     </div>
                 );
             };
@@ -3142,6 +3287,8 @@ const publicationsByYear = {
                 { id: 'connect', icon: 'fa-share-alt', label: 'Connect' }
             ];
             const mobileSocialLinks = [
+                { title: 'ResearchGate', icon: 'fab fa-researchgate', href: 'https://www.researchgate.net/profile/Mudasir-Ibrahim' },
+                { title: 'Academia', icon: 'ai ai-academia', href: 'https://aids.academia.edu/MudasirIbrahim' },
                 { title: 'ORCID', icon: 'fab fa-orcid', href: 'https://orcid.org/0000-0002-9049-8222' },
                 { title: 'Google Scholar', icon: 'fas fa-graduation-cap', href: 'https://scholar.google.com/citations?user=xEFzAvgAAAAJ&hl=en' },
                 { title: 'Web of Science', icon: 'fas fa-book-open', href: 'https://www.webofscience.com/wos/author/record/HPC-2085-2023' },
